@@ -2762,57 +2762,65 @@ function upload_itempictures($itemID){
 }
 
 /**
-* 親カテゴリを出力する関数
+* 初期親カテゴリ設定
 * @param {string} $item_main_category_name 親カテゴリ名
 */
-function output_main_category($item_main_category_name){
+function selected_main_category($item_main_category_name){
+	global $user_ID;
+
 	$main_categories = get_categories(array(
 		"parent" => 0,
 		"hide_empty" => 0,
 		"exclude" => 1 //'uncategorized'
 	));
-
-	global $user_ID;
+	
 	//親カテゴリがない場合
 	if($item_main_category_name === 0){
 		$item_main_category_name = xprofile_get_field_data('大学名', $user_ID);
 	}
 
-	foreach ((array)$main_categories as $category) {
-		$value = $category->term_id;
-		$name = $category->name;
-		if($item_main_category_name == $name){
-			echo "<option value='$value' selected >$name</option>";
-		}else{
-			echo "<option value='$value'>$name</option>";
-		}
-	}
+	output_category($main_categories, $item_main_category_name);
 
 	return $item_main_category_name;
 }
 
 /**
-* 子カテゴリを出力する関数
+* 初期子カテゴリ設定
 * @param {string} $item_main_category_name 親カテゴリ名
 * @param {string} $item_sub_category_name 子カテゴリ名
 */
-function output_sub_category($item_main_category_name, $item_sub_category_name){
+function selected_sub_category($item_main_category_name, $item_sub_category_name){
 	global $user_ID;
+
+	$user_main_category_ID = get_cat_ID($item_main_category_name);
+	// $department_IDs = get_term_children($user_main_category_ID, 'category');
+	$sub_categories = get_categories(array(
+		"parent" => $user_main_category_ID,
+		"hide_empty" => 0,
+		"exclude" => 1 //'uncategorized'
+	));
+
 	//子カテゴリがない場合
 	if($item_sub_category_name === 0){
 		$item_sub_category_name = xprofile_get_field_data('学部', $user_ID);
 	}
-	$user_main_category_ID = get_cat_ID($item_main_category_name);
-	$department_IDs = get_term_children($user_main_category_ID, 'category');
+	
+	output_category($sub_categories, $item_sub_category_name);
+}
 
-	foreach((array)$department_IDs as $department_ID){
-		$department = get_category($department_ID);
-		$value = $department->term_id;
-		$name = $department->name;
-		if($item_sub_category_name == $name){
-			echo "<option value='$value' selected >$name</option>";
+/**
+* カテゴリを出力する関数
+* @param {object} $categories カテゴリ一覧
+* @param {string} $selected_category 初期選択カテゴリ
+*/
+function output_category($categories, $selected_category){
+	foreach((array)$categories as $category){
+		$value = $category->term_id;
+		$name = $category->name;
+		if($selected_category == $name){
+			echo "<option value=$value selected>$name</option>";
 		}else{
-			echo "<option value='$value'>$name</option>";
+			echo "<option value=$value >$name</option>";
 		}
 	}
 }
