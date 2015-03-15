@@ -644,7 +644,7 @@
 		$sub_category = get_the_category();
 		$main;
 		$sub;
-		if($sub_category[0]->cat_name == 'Uncategorized'){
+		if($sub_category[0]->term_id == '1'){
 			$main = 0;
 			$sub = 0;
 		}else{
@@ -653,11 +653,11 @@
 		}
 	?>
 			<option value="">-- 親カテゴリ --</option>
-			<?php $item_main_category_name = output_main_category($main); ?>
+			<?php $item_main_category_name = selected_main_category($main); ?>
 			</select>
 			<select name="subcategory">
 			<option value="1">-- 子カテゴリ --</option>
-			<?php output_sub_category($item_main_category_name,$sub); ?>
+			<?php selected_sub_category($item_main_category_name,$sub); ?>
 			</select><br>
 	
 	<label>写真</label><br>
