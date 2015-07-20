@@ -4112,3 +4112,46 @@ div.post-content div.entry p{
 	padding:10px;
 	clear:both;
 }
+
+/*商品一覧*/
+/*.entry div{
+	width : 47%;
+	float: left;
+	margin-bottom: 20px;
+}*/
+.all-item div a img{
+	margin: 0 auto;
+}
+
+.item-displayed{
+	width: 47%;
+	float: left;
+}
+.item-displayed a div{
+	width: 85%;
+	color:white;
+	background-color: #00CC66;
+	font-size: 15px;
+	padding-left: 8%;
+}
+.item-displayed a{
+	display: block;
+	width: 100%;
+	height: 100%;
+	text-decoration: none;
+}
+.item-image{
+	height :160px;
+	width: 120px;
+	margin: 20px 0 20px 10px;
+}
+.pagenation{
+	height: 20px;
+	width: 50px;
+	margin: 0 5px;
+	font-size: 15px;
+	/*border: 1px solid;*/
+}
+.pagenation a{
+	font-size: 15px;
+}

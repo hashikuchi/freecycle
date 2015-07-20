@@ -107,7 +107,9 @@ function add_custom_where($where){
 
 	// 一覧ページには取引相手確定済の記事を表示しない。
 	// 「ください可能」のみの条件で検索された場合も、同様に表示しない。
-	if(is_front_page() || (isset($_REQUEST['seachform_itemstatus']) && $_REQUEST['seachform_itemstatus'] == 'givemeable') || (isset($_REQUEST["req"]) && $_REQUEST["req"] == "top_page")){
+	$url = the_permalink();
+	debug_log($url . "tes");
+	if(is_front_page() || (isset($_REQUEST['seachform_itemstatus']) && $_REQUEST['seachform_itemstatus'] == 'givemeable') || (isset($_REQUEST["req"]) && $_REQUEST["req"] == "top_page") || preg_match($url, "all-item")){
 		$where .= "AND (" . $table_prefix . "fmt_giveme_state.confirmed_flg <> 1 "
 				. " OR " . $table_prefix . "fmt_giveme_state.confirmed_flg is NULL)";
 	}
@@ -2903,6 +2905,12 @@ function show_search_page(){
 }
 
 add_shortcode('show_search_page', 'show_search_page');
+
+function show_all_item(){
+	include_once get_stylesheet_directory().DIRECTORY_SEPARATOR."all-item.php";
+}
+
+add_shortcode('show_all_item', 'show_all_item');
 
 /**
  * メッセージ一覧のページネーション部分。
