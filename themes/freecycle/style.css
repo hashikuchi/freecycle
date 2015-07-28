@@ -1502,6 +1502,54 @@ div a#logo_top img{
 	padding-left: 10px;
 }
 
+/*商品一覧*/
+.all-item div a img{
+	margin: 0 auto;
+}
+
+.item-displayed{
+	width: 47%;
+	float: left;
+}
+.item-displayed a{
+
+}
+.item-displayed a div{
+	width: 85%;
+	color:white;
+	background-color: #0099FF;
+	font-size: 15px;
+	padding-left: 8%;
+	white-space: nowrap;
+    overflow: hidden;
+	text-overflow: ellipsis;
+}
+.item-displayed a{
+	display: block;
+	width: 100%;
+	height: 100%;
+	text-decoration: none;
+}
+.item-image{
+	height :160px;
+	width: 120px;
+	margin: 20px 0 20px 10px;
+}
+.pagenation{
+	margin-top: 10px;
+}
+.pagenation span{
+	margin: 0 5px;
+	font-size: 12px;
+}
+.pagenation span a{
+	font-size: 12px;
+	text-decoration: none;
+	color: white;
+	background-color: #0099FF;
+	padding: 5px 5px;
+}
+
 }
 
 /****************************スマホスタイルの終了****************************************************/
@@ -2703,6 +2751,54 @@ div a#logo_top img{
 	padding-left: 10px;
 }
 
+/*商品一覧*/
+.all-item div a img{
+	margin: 0 auto;
+}
+
+.item-displayed{
+	width: 47%;
+	float: left;
+}
+.item-displayed a{
+
+}
+.item-displayed a div{
+	width: 85%;
+	color:white;
+	background-color: #0099FF;
+	font-size: 15px;
+	padding-left: 8%;
+	white-space: nowrap;
+    overflow: hidden;
+	text-overflow: ellipsis;
+}
+.item-displayed a{
+	display: block;
+	width: 100%;
+	height: 100%;
+	text-decoration: none;
+}
+.item-image{
+	height :160px;
+	width: 120px;
+	margin: 20px 0 20px 10px;
+}
+.pagenation{
+	margin-top: 10px;
+}
+.pagenation span{
+	margin: 0 5px;
+	font-size: 15px;
+	/*border: 1px solid;*/
+}
+.pagenation span a{
+	font-size: 15px;
+	text-decoration: none;
+	color: white;
+	background-color: #0099FF;
+	padding: 5px 5px;
+}
 }
 /*---------------------------------------タブレットここまで！！！------------------------------------------------------------------------------------------------*/
 
@@ -3952,8 +4048,56 @@ div a#logo_top img{
 	padding-left: 10px;
 }
 
+/*商品一覧*/
+.all-item div a img{
+	margin: 0 auto;
 }
-/**************PC表示終了********************/
+
+.item-displayed{
+	width: 47%;
+	float: left;
+}
+.item-displayed a{
+
+}
+.item-displayed a div{
+	width: 85%;
+	color:white;
+	background-color: #0099FF;
+	font-size: 15px;
+	padding-left: 8%;
+	white-space: nowrap;
+    overflow: hidden;
+	text-overflow: ellipsis;
+}
+.item-displayed a{
+	display: block;
+	width: 100%;
+	height: 100%;
+	text-decoration: none;
+}
+.item-image{
+	height :160px;
+	width: 120px;
+	margin: 20px 0 20px 10px;
+}
+.pagenation{
+	margin-top: 10px;
+}
+.pagenation span{
+	margin: 0 5px;
+	font-size: 15px;
+	/*border: 1px solid;*/
+}
+.pagenation span a{
+	font-size: 15px;
+	text-decoration: none;
+	color: white;
+	background-color: #0099FF;
+	padding: 5px 5px;
+}
+}
+/*************PC表示終了********************/
 
 
 /* ヘッダー部分のTODOリスト数 */
