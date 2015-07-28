@@ -8,7 +8,7 @@
 		<link rel="pingback" href="<?php bloginfo( 'pingback_url' ); ?>" />
 		<?php bp_head(); ?>
 		<?php wp_head(); ?>
-		<?php include_once "js/freecycleJS.php" ?>
+		<?php include_once "js/freecycleJS.php"; ?>
 		<?php
 		$user_ID = get_current_user_id();
 		// if facebook dialog has not be shown before, show it
@@ -23,7 +23,7 @@
 			update_user_meta($user_ID, 'is_twitter_popup_displayed', 1);
 			include_once "js/fcTwitterDialog.js.php";
 		}
-		// if first login 
+		// if first login
 		if(!get_user_meta($user_ID, "is_first_login_page_displayed")){
 			add_todo_first_new_entry($user_ID);
 			add_todo_first_giveme($user_ID);
@@ -206,7 +206,7 @@
 		<?php if(is_archive() || is_search() || is_single()){ ?>
 	<div id="search-23" class="widget widget_search"><!-- 検索バー -->
 				<form role="search" method="get" id="searchform_main" action="<?php echo home_url(); ?>">
-						<div id="searchform_text"> 
+						<div id="searchform_text">
 					  			<input type="text" id="searchtext" name="s" id="s" value="<?php if(isset($_GET['s'])){ echo $_GET['s']; } ?>"/>
 					  	</div>
 							<div id="searchform_pulldown">
@@ -217,12 +217,11 @@
 							</div>
 							<div id="searchform_submit">
 								<input type="submit" id="searchsubmit" value="検索" />
-							</div> 
-						</div> 
+							</div>
+						</div>
 				</form>
 	</div><!-- 検索バー -->
 </div><!-- header_form -->
 		<!--<hr class="line-search"> -->
 		<?php } ?>
 		<div id="container">
-

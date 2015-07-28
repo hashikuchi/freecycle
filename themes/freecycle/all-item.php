@@ -3,14 +3,11 @@
 Template Name: 商品一覧
 */
 
-function get_items_with_pagenation($args = array(), $range = 'all'){
-	if(isset($args['range'])){
-		$range = $args['range'];
+function get_items_with_pagenation($args = array()){
+	if(!isset($args['post_per_page'])){
+		$args['post_per_page'] = 10;
 	}
-	$args['post_per_page'] = 10;
-
 	$items_obj = new WP_Query($args);
-
 	$items = $items_obj->posts;
 	//オブジェクトを配列に変換
 	$items = json_decode(json_encode($items), true);
@@ -29,7 +26,7 @@ function get_items_with_pagenation($args = array(), $range = 'all'){
 		}
 
 	}
-	$pagenation = create_pagenation($items_obj, $range);
+	$pagenation = create_pagenation($items_obj);
 
 	$return_val = array(
 			'posts' 		=> $items,
@@ -39,18 +36,9 @@ function get_items_with_pagenation($args = array(), $range = 'all'){
 	return $return_val;
 }
 
-function create_pagenation($items_obj, $range){
+function create_pagenation($items_obj){
 	if(is_object($items_obj)){
-		$all_flag = "";
-		if(!is_numeric($range)){
-			$all_flag = true;
-			$range = 1;
-		}else{
-			$all_flag = false; //range有り
-		}
-
 		$url = home_url() . remove_query_arg('paged');
-
 
 		if(preg_match('/\?/', $url)){
 			$url .= "&";
@@ -65,7 +53,6 @@ function create_pagenation($items_obj, $range){
 		}else{
 			$paged = $_GET["page_number"];
 		}
-		
 
 		$return_val = array(
 			"min_num"	=> false,
@@ -79,12 +66,11 @@ function create_pagenation($items_obj, $range){
 			"pages"	=> false,
 			"paged"	=> $paged,
 			"range"	=> $range,
-			"query_vars"	=> $items_obj->query_vars 
+			"query_vars"	=> $items_obj->query_vars
 		);
 
 		$st_num = 1;
 		$end_num = ceil(count($items_obj->posts) / ($items_obj->query_vars['post_per_page']));
-		// $pre_num = ($paged != 1)?($paged - 1):1;
 		$pre_num = $paged - 1;
 		$next_num = $paged + 1;
 		$pages = array();
@@ -114,14 +100,17 @@ function create_pagenation($items_obj, $range){
 				$return_val['next_url'] = $arr['url'];
 			}
 		}
-		// $return_val['pages'] = $pages;
 	}
 	return $return_val;
 }
-?>	
+?>
 
 	<div>
 		<h3>商品一覧</h3>
+		<?php
+		   get_search_form();
+		?>
+		<hr>
 		<?php
 			$page = isset($_GET['page_number'])?$_GET['page_number']: 1;
 			// var_dump($page);
@@ -129,39 +118,28 @@ function create_pagenation($items_obj, $range){
 					'posts_per_page' => -1,
 					'paged' => $page
 					);
-			$items = get_items_with_pagenation($args, 'ALL');
-			$pagenation = $items['pagenation'];
+			$items = get_items_with_pagenation($args);
+			$page = $items['pagenation'];
 			$items_data = $items["posts"];
 			$count = 1;
 			$row = 2;
 			$is_closed = true;
-			// var_dump($items);
 		?>
 		<?php
-		// var_dump($pagenation['paged']);
-			$item_st_id = ($pagenation['paged'] - 1) * 10;
-			// var_dump($items_data);
-			// var_dump($items['pagenation']['paged']);
-			// var_dump($_GET['paged']);
-			for($i = $item_st_id; $i < ($item_st_id + $pagenation['query_vars']['post_per_page']); $i++) :
+			$item_st_id = ($page['paged'] - 1) * 10;
+			for($i = $item_st_id; $i < ($item_st_id + $page['query_vars']['post_per_page']); $i++) :
+				if(!$items_data[$i]['post_title']){
+					break;
+				}
 				if($count%$row == 1){
 					$is_closed = true;
 					echo '<div class="posts-row">';
-				}
-				if(!$items_data[$i]['post_title']){
-					// echo "<hr>";
-					break;
 				}
 		?>
 			<div id='post-<?php echo $i; ?>'>
 				<div class="post-content">
 					<div class="item-displayed">
-				 		<a href='<?php echo $items_data[$i]["url"]; ?>' ><div><?php
-				 				if(mb_strlen($items_data[$i]["post_title"]) > 8){
-				 					echo mb_substr($items_data[$i]["post_title"], 0, 8) . ".."; 
-				 				}else{
-				 					echo $items_data[$i]['post_title'];
-				 				}
+				 		<a href='<?php echo $items_data[$i]["url"]; ?>' ><div><?php  echo $items_data[$i]['post_title'];
 				 		?></div><img src='<?php echo $items_data[$i]["thumbnail"]; ?>' class="item-image"></a>
 				 	</div>
 				 </div>
@@ -173,18 +151,28 @@ function create_pagenation($items_obj, $range){
 			<hr>
 			<?php endif; ?>
 			<?php $count++;?>
-		 	<?php endfor; ?>
-		 <?	if($is_closed){
-		 		echo '<hr>';
-		 }
+		 <?php endfor; ?>
+		 <?php	if($is_closed){
+					echo "<hr>";
+			 }
 		 ?>
-		<span class="pagenation"><a href='<?php echo $pagenation["min_url"]; ?>' >first</a></span>
-		 <?php
-		 	if($pagenation['pre_num'] > 1):
-		 ?>
-			<span class="pagenation"><a href='<?php echo $pagenation["pre_url"]; ?>' >前のページ</a></span>
-		 <?php endif; ?>
-		<span class="pagenation"><?php echo $pagenation['paged'];?></span>
-		<span class="pagenation"><a href='<?php echo $pagenation["next_url"]; ?>' >次のページ</a></span>
-		<span class="pagenation"><a href='<?php echo $pagenation["max_url"]; ?>' >last</a></span>
+		<div class="pagenation">
+			<?php if($page["paged"] == $page["min_num"]): ?>
+				<span>最初のページ</span>
+			<?php else : ?>
+				<span><a href='<?php echo $page["min_url"]; ?>' >最初のページ</a></span>
+			<?php endif; ?>
+			<?php if($page['pre_num'] > 0): ?>
+				<span><a href='<?php echo $page["pre_url"]; ?>' >前ページ</a></span>
+			<?php endif; ?>
+			<span><?php echo $page['paged'];?></span>
+			<?php  if(!empty($page["next_url"])):?>
+				<span><a href='<?php echo $page["next_url"]; ?>' >次ページ</a></span>
+			<?php  endif; ?>
+			<?php if($page["paged"] == $page["max_num"]): ?>
+				<span>最後のページ</span>
+			<?php else : ?>
+				<span><a href='<?php echo $page["max_url"]; ?>' >最後のページ</a></span>
+			<?php endif; ?>
+		</div>
 	</div>
