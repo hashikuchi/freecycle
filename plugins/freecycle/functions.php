@@ -23,6 +23,8 @@ add_action('wp_ajax_nopriv_exhibit_from_app', 'exhibit_from_app');
 add_action('wp_ajax_register_app_information', 'register_app_information');
 add_action('wp_ajax_cancel_trade_from_exhibitor', 'cancel_trade_from_exhibitor');
 add_action('wp_ajax_cancel_trade_from_bidder', 'cancel_trade_from_bidder');
+add_action('wp_ajax_get_threads_JSON_from_ajax','get_threads_JSON_from_ajax');
+add_action('wp_ajax_get_messages_JSON_from_ajax','get_messages_JSON_from_ajax');
 add_action('user_register', 'on_user_added');
 add_action('delete_user', 'on_user_deleted');
 remove_filter( 'bp_get_the_profile_field_value', 'xprofile_filter_link_profile_data', 9, 2);
@@ -2966,3 +2968,44 @@ function show_all_items(){
 	include_once get_stylesheet_directory().DIRECTORY_SEPARATOR."all-items.php";
 }
 add_shortcode('show_all_items', 'show_all_items');
+
+
+function get_threads_JSON_from_ajax(){
+	get_threads_JSON();
+	die;
+}
+
+function get_messages_JSON_from_ajax(){
+	get_messages_JSON();
+	die;
+}
+
+function get_threads_JSON(){
+	if ( bp_has_message_threads( bp_ajax_querystring( 'messages' ) ) ){
+		$thread_data = array();
+		global $messages_template;
+		while ( bp_message_threads() ){
+			bp_message_thread();
+			$user_id = $messages_template->thread->last_sender_id;
+			$user_name = get_userdata($user_id)->user_nicename;
+			$avatar_tag = get_avatar($user_id);
+			$doc = new DOMDocument();
+			$doc->loadHTML($avatar_tag);
+			$avatar_url = $doc->getElementsByTagName("img")->item(0)->getAttribute("src");
+			$content = $messages_template->thread->messages;
+			$thread_data[] = array(
+				'thread_id' => bp_get_message_thread_id(),
+				'from' => $user_name,
+				'avatar' => $avatar_url,
+				'subject' => bp_get_message_thread_subject(),
+				'last_post_date' => bp_get_message_thread_last_post_date(),
+				'unread' => bp_message_thread_has_unread()
+			);
+		}
+	}
+	echo json_encode($thread_data);
+}
+
+function get_messages_JSON(){
+
+}
