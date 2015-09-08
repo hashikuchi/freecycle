@@ -2976,7 +2976,7 @@ function get_threads_JSON_from_ajax(){
 }
 
 function get_messages_JSON_from_ajax(){
-	get_messages_JSON($_POST['thread_id']);
+	get_messages_JSON($_GET['thread_id']);
 	die;
 }
 
@@ -3007,7 +3007,7 @@ function get_threads_JSON(){
 }
 
 function get_messages_JSON($thread_id){
-	$args = array('thread_id' => 6, );
+	$args = array('thread_id' => $thread_id, );
 	if(bp_thread_has_messages($args)){
 		$messages = array();
 		$doc = new DOMDocument();
