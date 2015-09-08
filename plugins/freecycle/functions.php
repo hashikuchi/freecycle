@@ -3026,6 +3026,14 @@ function get_messages_JSON($thread_id){
 			$message['sender_id'] = $thread_template->message->sender_id;
 			$message['sender_name'] = get_userdata($message['sender_id'])->display_name;
 
+			$doc->loadHTML(bp_get_the_thread_message_sender_avatar_thumb());
+			$avatar_url = $doc->getElementsByTagName("img")->item(0)->getAttribute("src");
+			if(strpos($avatar_url, "http:") === 0){
+				$message['avatar_url'] = $avatar_url;
+			}else{
+				$message['avatar_url'] = "http:" . $avatar_url;
+			}
+
 			// 地図があるか判定
 			$divs = $doc->getElementsByTagName("div");
 			if(sizeof($divs) > 0){
@@ -3038,7 +3046,6 @@ function get_messages_JSON($thread_id){
 					}
 				}
 			}
-
 			$messages[] = $message;
 		}
 		echo json_encode($messages);
