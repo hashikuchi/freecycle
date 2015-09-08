@@ -4377,12 +4377,13 @@ div.grobal_nav_div_sp ul li a span {
 		font-size: 110%;
 	}
 }
+/*
 .entry img.wp-post-image {
 	border: 1px solid;
 	border-radius: 20%;
 	-webkit-border-radius: 20%;
 	-moz-border-radius: 20%;
-}
+}*/
 .index-item-title a{
 	/*width: 70%;
 	margin: 0 15%;*/
@@ -4536,4 +4537,37 @@ div.pagenation_next{
  	float: left;
 	padding: 5%;
 	border: 2px solid;
+}
+div.grid_center{
+	margin: 0 auto;
+}
+div.grid{
+	background-color: #FFF;
+	float: left;
+	width: 152px;
+	padding: 0px;
+	margin: 10px 2px;
+	border:1px solid #ffc133;
+	background-color: #fff9ee;
+	/*background-color: #eee;*/
+}
+div.grid img{
+	margin: 0 auto;
+	width: auto;
+}
+div.grid .grid_title{
+	font-size: 1.2em;
+	font-weight: bolder;
+	margin: 5px 0;
+	padding: 0 3px;
+	background-color: #fdfaaf;
+}
+div.grid .grid_title a{
+	text-decoration: none;
+	color: #ff8428;
+}
+div.grid .grid_author{
+	width: auto;
+	padding: 5px 3px;
+	text-align: right;
 }

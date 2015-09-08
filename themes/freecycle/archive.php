@@ -1,6 +1,8 @@
 <?php get_header(); ?>
 
-	<div id="content">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/masonry/3.3.2/masonry.pkgd.js"></script>
+
+	<!--div id="content"-->
 		<div class="padder">
 
 		<?php do_action( 'bp_before_archive' ); ?>
@@ -9,59 +11,66 @@
 
 			<h3 class="pagetitle"><?php printf('「%1$s」の商品一覧', wp_title( false, false ) ); ?></h3>
 
-			<?php if ( have_posts() ) : ?>
-
-				<?php bp_dtheme_content_nav( 'nav-above' ); ?>
-				<?php $count = 1; ?>
-				<?php $row= 2; ?>
-				<?php $is_closed = false; ?>
-				<?php while (have_posts()) : the_post(); ?>
-					<?php do_action( 'bp_before_blog_post' ); ?>
-		<?php if($count%$row == 1) {
+<!------------------------------------------------------------------------------------------->
+			<?php 
+				if ( have_posts() ) :
+				bp_dtheme_content_nav( 'nav-above' ); 
+				$count = 1;
+				$row= 2;
 				$is_closed = false;
+				
+				echo('<div class="grid_center">');
+				while (have_posts()){
+					the_post();
+					do_action( 'bp_before_blog_post' );
+			?>
+			
+				<div id="post-<?php the_ID(); ?>" class="grid">
+						<a href="<?php the_permalink(); ?>"><?php the_post_thumbnail(array(150, 150)) ?></a>
+						<?php 
+							wp_link_pages( array( 'before' => '<div class="page-link"><p>' . __( 'Pages: ', 'buddypress' ), 'after' => '</p></div>', 'next_or_number' => 'number' ) ); 
+						?>
+					<div class="grid_title"><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></div>
+					<span class="grid_text"><?php the_content(); ?></span>
+					<div class="grid_author"><?php the_author(); ?></div>
+				</div>
+			<?php
+				do_action( 'bp_after_blog_post' );
+				$count++;
+			}
+
+			bp_dtheme_content_nav( 'nav-below' ); 
 		?>
-				<div class="posts-row">
-		<?php } ?>
-					<div id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
 
-						<div class="post-content">
-
-							<div class="entry">
-								<a href="<?php the_permalink(); ?>"><?php the_post_thumbnail(array(150, 150)) ?></a>
-								<?php wp_link_pages( array( 'before' => '<div class="page-link"><p>' . __( 'Pages: ', 'buddypress' ), 'after' => '</p></div>', 'next_or_number' => 'number' ) ); ?>
-								<span class="index-item-title"><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></span>
-							</div>
-						</div>
-					</div>
-		<?php if($count%$row == 0) {
-				$is_closed = true;
-		?>
-				</div><!-- posts-row -->
-		<hr class="hr-posts-row">
-		<?php } ?>
-					<?php do_action( 'bp_after_blog_post' ); ?>
-				<?php $count++; ?>
-				<?php endwhile; ?>
-		<?php if(!$is_closed){ ?>
-			</div><!-- posts-row -->
-		<hr class="hr-posts-row">
-		<?php } ?>
-				<?php bp_dtheme_content_nav( 'nav-below' ); ?>
-
-			<?php else : ?>
-
-				<h2 class="center"><?php _e( 'Not Found', 'buddypress' ); ?></h2>
-				<?php get_search_form(); ?>
-
-			<?php endif; ?>
+<!------------------------------------------------------------------------------------------->
+			<?php 
+				else : /*見つからなかった*/
+				echo('<h2 class="center">'._e( 'Not Found', 'buddypress' ).'</h2>');
+				get_search_form();
+				endif; 
+			?>
+<!------------------------------------------------------------------------------------------->
 
 		</div>
 
 		<?php do_action( 'bp_after_archive' ); ?>
 
 		</div><!-- .padder -->
-	</div><!-- #content -->
+	<!--/div--><!-- #content -->
 
-	<?php get_sidebar(); ?>
+	<!--?php get_sidebar(); ?-->
 
 <?php get_footer(); ?>
+
+<!--可変グリッドアニメーション----------------------------------------------------------->
+	<script type="text/javascript">
+		jQuery(function(){
+    	jQuery('.grid_center').masonry({
+      	itemSelector: '.grid',
+      	isFitWidth: true,
+      	isAnimated: true,
+				isFitWidth : true
+    	});
+		});
+	</script>
+<!----------------------------------------------------------------------------------->
