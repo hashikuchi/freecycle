@@ -3010,6 +3010,7 @@ function get_threads_JSON(){
 function get_messages_JSON($thread_id){
 	$args = array('thread_id' => $thread_id, );
 	if(bp_thread_has_messages($args)){
+		global $thread_template;
 		$messages = array();
 		$doc = new DOMDocument();
 		$doc->encoding = "UTF-8";
@@ -3022,6 +3023,8 @@ function get_messages_JSON($thread_id){
 			$doc->loadHTML($html);
 			$content = $doc->getElementsByTagName('p')->item(0)->textContent;
 			$message['content'] = $content;
+			$message['sender_id'] = $thread_template->message->sender_id;
+			$message['sender_name'] = get_userdata($message['sender_id'])->display_name;
 
 			// 地図があるか判定
 			$divs = $doc->getElementsByTagName("div");
