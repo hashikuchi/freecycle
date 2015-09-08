@@ -2976,7 +2976,7 @@ function get_threads_JSON_from_ajax(){
 }
 
 function get_messages_JSON_from_ajax(){
-	get_messages_JSON();
+	get_messages_JSON($_POST['thread_id']);
 	die;
 }
 
@@ -3002,10 +3002,41 @@ function get_threads_JSON(){
 				'unread' => bp_message_thread_has_unread()
 			);
 		}
+		echo json_encode($thread_data);
 	}
-	echo json_encode($thread_data);
 }
 
-function get_messages_JSON(){
+function get_messages_JSON($thread_id){
+	$args = array('thread_id' => 6, );
+	if(bp_thread_has_messages($args)){
+		$messages = array();
+		$doc = new DOMDocument();
+		$doc->encoding = "UTF-8";
+		while(bp_thread_messages()){
+			bp_thread_the_message();
+			$lat = "";
+			$lng = "";
+			$html = mb_convert_encoding(bp_get_the_thread_message_content(), 'HTML-ENTITIES', 'ASCII, JIS, UTF-8, EUC-JP, SJIS');
+			$doc->loadHTML($html);
+			$content = $doc->getElementsByTagName('p')->item(0)->textContent;
+			$messages[] = array(
+				'content' => $content,
+			);
 
+			// 地図があるか判定
+			$divs = $doc->getElementsByTagName("div");
+			if(sizeof($divs) > 0){
+				foreach ($divs as $div) {
+					if($div->getAttribute("name") === "map-canvas-message"){
+						$lat = $div->getAttribute("lat");
+						$lng = $div->getAttribute("lng");
+						$messages['lat'] = $lat;
+						$messages['lng'] = $lng;
+					}
+				}
+			}
+
+		}
+		echo json_encode($messages);
+	}
 }
