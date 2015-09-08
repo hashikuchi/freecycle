@@ -2987,7 +2987,7 @@ function get_threads_JSON(){
 		while ( bp_message_threads() ){
 			bp_message_thread();
 			$user_id = $messages_template->thread->last_sender_id;
-			$user_name = get_userdata($user_id)->user_nicename;
+			$user_name = get_userdata($user_id)->display_name;
 			$avatar_tag = get_avatar($user_id);
 			$doc = new DOMDocument();
 			$doc->loadHTML($avatar_tag);
