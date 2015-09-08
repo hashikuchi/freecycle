@@ -3039,7 +3039,6 @@ function get_messages_JSON($thread_id){
 			$messages[] = $message;
 		}
 		echo json_encode($messages);
-		var_dump($messages);
 	}
 }
 
