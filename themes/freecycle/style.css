@@ -4553,8 +4553,8 @@ div.grid{
 }
 div.grid img{
 	margin: 0 auto;
-	width: 100%;
-	height: auto;
+	width:100%;
+	height:auto;
 }
 div.grid .grid_title{
 	font-size: 1.2em;
