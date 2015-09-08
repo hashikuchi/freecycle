@@ -271,6 +271,19 @@ function giveme(){
 			VALUES (current_timestamp, %d, 1)",
 			$postID));
 	}
+	
+	// くださいしたことを通知
+	$content 
+		= 'くださいリクエストされました！' . PHP_EOL .
+			' 【商品名】:<a href="' . get_permalink($postID) . '">' . get_post($postID)->post_title . '</a>' . PHP_EOL .
+			bp_core_get_userlink(bp_loggedin_user_id()) .'さんを取引相手に選らんで取引の日時を決めれます。';
+	
+	$message_ID = messages_new_message(array(
+					'sender_id' => bp_loggedin_user_id(),
+					'recipients' => get_post($postID)->post_author,
+					'subject' => 'くださいリクエストされました！',
+					'content' => $content
+					));
 
 	// 仮払ポイントを1p増
 	add_temp_used_points($userID, 1);
@@ -323,7 +336,19 @@ function cancelGiveme(){
 			WHERE post_id = %d",
 			$postID));
 		}
+	
+		// くださいリクエストが取り消されたことを通知
+		$content 
+			= 'くださいリクエストが取り消されました' . PHP_EOL .
+				' 【商品名】:<a href="' . get_permalink($postID) . '">' . get_post($postID)->post_title . '</a>' . PHP_EOL ;
 
+		$message_ID = messages_new_message(array(
+						'sender_id' => bp_loggedin_user_id(),
+						'recipients' => get_post($postID)->post_author,
+						'subject' => 'くださいリクエストが取り消されました',
+						'content' => $content
+						));
+	
 		// 仮払ポイントを1p減算
 		add_temp_used_points($userID, -1);
 		echo "くださいを取消しました。";
