@@ -4544,7 +4544,7 @@ div.grid_center{
 div.grid{
 	background-color: #FFF;
 	float: left;
-	width: 152px;
+	width: 200px;
 	padding: 0px;
 	margin: 10px 2px;
 	border:1px solid #ffc133;
@@ -4553,7 +4553,8 @@ div.grid{
 }
 div.grid img{
 	margin: 0 auto;
-	width: auto;
+	width: 100%;
+	height: auto;
 }
 div.grid .grid_title{
 	font-size: 1.2em;

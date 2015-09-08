@@ -26,7 +26,7 @@
 			?>
 			
 				<div id="post-<?php the_ID(); ?>" class="grid">
-						<a href="<?php the_permalink(); ?>"><?php the_post_thumbnail(array(150, 150)) ?></a>
+						<a href="<?php the_permalink(); ?>"><?php the_post_thumbnail('large') ?></a>
 						<?php 
 							wp_link_pages( array( 'before' => '<div class="page-link"><p>' . __( 'Pages: ', 'buddypress' ), 'after' => '</p></div>', 'next_or_number' => 'number' ) ); 
 						?>
