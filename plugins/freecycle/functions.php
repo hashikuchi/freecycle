@@ -3014,14 +3014,13 @@ function get_messages_JSON($thread_id){
 		$doc->encoding = "UTF-8";
 		while(bp_thread_messages()){
 			bp_thread_the_message();
+			$message = array();
 			$lat = "";
 			$lng = "";
 			$html = mb_convert_encoding(bp_get_the_thread_message_content(), 'HTML-ENTITIES', 'ASCII, JIS, UTF-8, EUC-JP, SJIS');
 			$doc->loadHTML($html);
 			$content = $doc->getElementsByTagName('p')->item(0)->textContent;
-			$messages[] = array(
-				'content' => $content,
-			);
+			$message['content'] = $content;
 
 			// 地図があるか判定
 			$divs = $doc->getElementsByTagName("div");
@@ -3030,13 +3029,15 @@ function get_messages_JSON($thread_id){
 					if($div->getAttribute("name") === "map-canvas-message"){
 						$lat = $div->getAttribute("lat");
 						$lng = $div->getAttribute("lng");
-						$messages['lat'] = $lat;
-						$messages['lng'] = $lng;
+						$message['lat'] = $lat;
+						$message['lng'] = $lng;
 					}
 				}
 			}
 
+			$messages[] = $message;
 		}
 		echo json_encode($messages);
+		var_dump($messages);
 	}
 }
