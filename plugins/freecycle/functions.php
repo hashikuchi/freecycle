@@ -276,7 +276,7 @@ function giveme(){
 	$content 
 		= 'くださいリクエストされました！' . PHP_EOL .
 			' 【商品名】:<a href="' . get_permalink($postID) . '">' . get_post($postID)->post_title . '</a>' . PHP_EOL .
-			bp_core_get_userlink(bp_loggedin_user_id()) .'さんを取引相手に選らんで取引の日時を決めれます。';
+			bp_core_get_userlink(bp_loggedin_user_id()) .'さんを取引相手に選んで取引の日時を決められます。';
 	
 	$message_ID = messages_new_message(array(
 					'sender_id' => bp_loggedin_user_id(),
