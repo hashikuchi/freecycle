@@ -3012,8 +3012,12 @@ function get_messages_JSON($thread_id){
 	if(bp_thread_has_messages($args)){
 		global $thread_template;
 		$messages = array();
-		$doc = new DOMDocument();
+		$doc = new DOMDocument(); //スレッドメッセージ読み込み用DOM
 		$doc->encoding = "UTF-8";
+
+		$avatarDoc = new DOMDocument(); //アバター画像読み込み用DOM	
+		$avatarDoc->encoding = "UTF-8";
+
 		while(bp_thread_messages()){
 			bp_thread_the_message();
 			$message = array();
@@ -3026,8 +3030,9 @@ function get_messages_JSON($thread_id){
 			$message['sender_id'] = $thread_template->message->sender_id;
 			$message['sender_name'] = get_userdata($message['sender_id'])->display_name;
 
-			$doc->loadHTML(bp_get_the_thread_message_sender_avatar_thumb());
-			$avatar_url = $doc->getElementsByTagName("img")->item(0)->getAttribute("src");
+			// アバター画像読み込み
+			$avatarDoc->loadHTML(bp_get_the_thread_message_sender_avatar_thumb());
+			$avatar_url = $avatarDoc->getElementsByTagName("img")->item(0)->getAttribute("src");
 			if(strpos($avatar_url, "http:") === 0){
 				$message['avatar_url'] = $avatar_url;
 			}else{
