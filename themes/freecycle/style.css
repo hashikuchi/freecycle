@@ -4546,10 +4546,14 @@ div.grid{
 	float: left;
 	width: 200px;
 	padding: 0px;
-	margin: 10px 2px;
-	border:1px solid #ffc133;
-	background-color: #fff9ee;
-	/*background-color: #eee;*/
+	margin: 10px 5px;
+	/*border:1px solid #ffc133;*/
+	border:1px solid #ddd;
+	/*background-color: #fff9ee;*/
+	background-color: #fefefe;
+	-webkit-box-shadow	: 3px 3px 10px #999;
+  -moz-box-shadow			: 3px 3px 10px #999;
+  box-shadow					: 3px 3px 10px #999;
 }
 div.grid img{
 	margin: 0 auto;
@@ -4557,18 +4561,27 @@ div.grid img{
 	height:auto;
 }
 div.grid .grid_title{
-	font-size: 1.2em;
+	font-size: 13px;
 	font-weight: bolder;
-	margin: 5px 0;
-	padding: 0 3px;
-	background-color: #fdfaaf;
+	margin: 0px 0;
+	padding: 10px 3px;
+	background-color: #fffdd6;
 }
 div.grid .grid_title a{
 	text-decoration: none;
 	color: #ff8428;
 }
+div.grid .grid_text{
+	width: auto;
+	font-size: 11px;
+	padding: 5px 3px;
+}
 div.grid .grid_author{
 	width: auto;
 	padding: 5px 3px;
+	font-size: 9px;
+	text-align: right;
+}
+div.grid_zoom{
 	text-align: right;
 }

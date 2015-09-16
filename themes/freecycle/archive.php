@@ -3,13 +3,17 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/masonry/3.3.2/masonry.pkgd.js"></script>
 
 	<!--div id="content"-->
-		<div class="padder">
+		<!--div class="padder"-->
 
 		<?php do_action( 'bp_before_archive' ); ?>
 
 		<div class="page" id="blog-archives" role="main">
 
 			<h3 class="pagetitle"><?php printf('「%1$s」の商品一覧', wp_title( false, false ) ); ?></h3>
+			<div class="grid_zoom">
+				<input type="button" value="+" onClick="change('big')">
+				<input type="button" value="-" onClick="change('small')">
+			</div>
 
 <!------------------------------------------------------------------------------------------->
 			<?php 
@@ -26,12 +30,12 @@
 			?>
 			
 				<div id="post-<?php the_ID(); ?>" class="grid">
-						<a href="<?php the_permalink(); ?>"><?php the_post_thumbnail('large') ?></a>
-						<?php 
-							wp_link_pages( array( 'before' => '<div class="page-link"><p>' . __( 'Pages: ', 'buddypress' ), 'after' => '</p></div>', 'next_or_number' => 'number' ) ); 
-						?>
 					<div class="grid_title"><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></div>
-					<span class="grid_text"><?php the_content(); ?></span>
+					<a href="<?php the_permalink(); ?>"><?php the_post_thumbnail('large') ?></a>
+					<?php 
+						wp_link_pages( array( 'before' => '<div class="page-link"><p>' . __( 'Pages: ', 'buddypress' ), 'after' => '</p></div>', 'next_or_number' => 'number' ) ); 
+					?>
+					<div class="grid_text"><?php the_content(); ?></div>
 					<div class="grid_author"><?php the_author(); ?></div>
 				</div>
 			<?php
@@ -55,7 +59,7 @@
 
 		<?php do_action( 'bp_after_archive' ); ?>
 
-		</div><!-- .padder -->
+		<!--/div--><!-- .padder -->
 	<!--/div--><!-- #content -->
 
 	<!--?php get_sidebar(); ?-->
@@ -72,5 +76,23 @@
 				isFitWidth : true
     	});
 		});
-	</script>
+		
+function change(size){
+	if(size == 'big'){ // 拡大の処理
+		var width = jQuery('div.grid').width();
+		console.log(width);
+		jQuery('div.grid').css('width',width+30);
+	}
+	else if(size == 'small'){ // 縮小の処理
+		var width = jQuery('div.grid').width();
+		jQuery('div.grid').css('width',width-30);
+	}
+	jQuery('.grid_center').masonry({
+      	itemSelector: '.grid',
+      	isFitWidth: true,
+      	isAnimated: true,
+				isFitWidth : true
+    	});
+}
+</script>
 <!----------------------------------------------------------------------------------->
