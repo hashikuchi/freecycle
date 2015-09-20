@@ -25,6 +25,7 @@ add_action('wp_ajax_cancel_trade_from_exhibitor', 'cancel_trade_from_exhibitor')
 add_action('wp_ajax_cancel_trade_from_bidder', 'cancel_trade_from_bidder');
 add_action('wp_ajax_get_threads_JSON_from_ajax','get_threads_JSON_from_ajax');
 add_action('wp_ajax_get_messages_JSON_from_ajax','get_messages_JSON_from_ajax');
+add_action('wp_ajax_get_update_messages_JSON_from_ajax','get_update_messages_JSON_from_ajax');
 add_action('wp_ajax_bp_loggedin_user_id_from_ajax', 'bp_loggedin_user_id_from_ajax');
 add_action('user_register', 'on_user_added');
 add_action('delete_user', 'on_user_deleted');
@@ -2970,7 +2971,9 @@ function show_all_items(){
 }
 add_shortcode('show_all_items', 'show_all_items');
 
-
+/*
+	アプリメッセージ用関数
+*/
 function get_threads_JSON_from_ajax(){
 	get_threads_JSON();
 	die;
@@ -3050,6 +3053,19 @@ function get_messages_JSON($thread_id){
 		}
 		echo json_encode($messages);
 	}
+}
+
+function get_update_messages_JSON_from_ajax(){
+	update_messages($_GET['thread_id'], $_GET['content']);
+}
+
+function update_messages($thread_id, $content){
+	$arg = array(
+		'thread_id' => $thread_id,
+		'content' => $content
+	);
+	messages_new_message($arg);
+	die;
 }
 
 // ログインしているユーザのIDを返すajax用API。
