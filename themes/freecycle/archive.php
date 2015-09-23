@@ -11,8 +11,8 @@
 
 			<h3 class="pagetitle"><?php printf('「%1$s」の商品一覧', wp_title( false, false ) ); ?></h3>
 			<div class="grid_zoom">
-				<input type="button" value="+" onClick="change('big')">
-				<input type="button" value="-" onClick="change('small')">
+				<div onClick="change('big')">＋</div>
+				<div onClick="change('small')">－</div>
 			</div>
 
 <!------------------------------------------------------------------------------------------->
