@@ -1423,6 +1423,9 @@ div.header_img_navi_contents{
 	background-repeat: no-repeat;
 	padding:5px;
 }
+#top_pic{
+	width: 100%;
+}
 
 div a#logo_top img{
 	width: 60%;
@@ -2727,6 +2730,9 @@ ul#menu-footer_menu li a{
 	background-position: center;
 	background-repeat: no-repeat;
 	padding:30px;
+}
+#top_pic{
+	width: 100%;
 }
 	
 
@@ -4082,6 +4088,9 @@ ul#menu-footer_menu li a{
 	background-position: center;
 	background-repeat: no-repeat;
 	padding:30px;
+}
+#top_pic{
+	max-width: 700px;
 }
 	
 div a#logo_top img{
