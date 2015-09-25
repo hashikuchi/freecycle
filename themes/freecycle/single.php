@@ -567,7 +567,8 @@
 								if(doneGiveme($post->ID, $user_ID)){ ?>
 						<input type="button" id="cancelGiveme" value="ください取消" onClick="onCancelGiveme();">
 							<?php }elseif(get_usable_point($user_ID) > 0){ ?>
-						<input type="button" id="giveme" value="ください" onClick="onGiveme();">
+						<input type="button" id="giveme" value="ください" onClick="onGiveme();"></br>
+						<a id="explain_giveme" href="<?php echo home_url(); ?>/howtouse#a2">「ください」とは</a>
 							<?php }else{ ?>
 						使用可能なポイントが無いため「ください」できません。
 							<?php } ?>
