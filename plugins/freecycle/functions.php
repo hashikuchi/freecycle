@@ -971,7 +971,6 @@ function send_push_notification($recipients, $args){
 
 function get_nonce_from_app(){
 	$action = isset($_REQUEST["nonce_action"])?$_REQUEST["nonce_action"]:"";
-	echo $action;
 	echo wp_create_nonce($action);
 	die;
 }
@@ -1090,6 +1089,7 @@ function fc_core_screen_signup() {
 		// Add any errors to the action for the field in the template for display.
 		if ( !empty( $bp->signup->errors ) ) {
 			foreach ( (array) $bp->signup->errors as $fieldname => $error_message ) {
+				echo $error_message;
 				// addslashes() and stripslashes() to avoid create_function()
 				// syntax errors when the $error_message contains quotes
 				add_action( 'bp_' . $fieldname . '_errors', create_function( '', 'echo apply_filters(\'bp_members_signup_error_message\', "<div class=\"error\">" . stripslashes( \'' . addslashes( $error_message ) . '\' ) . "</div>" );' ) );
