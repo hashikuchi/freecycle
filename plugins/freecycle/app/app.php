@@ -42,7 +42,7 @@ function get_signup_fields_json(){
 				);
 
 				// セレクトボックス、ラジオボタンの場合、選択肢を配列にして追加する
-				if($f["type"] === "selectbox" || $f["radio"]){
+				if($f["type"] === "selectbox" || $f["type"] === "radio"){
 					$temp_f = new BP_XProfile_Field(bp_get_the_profile_field_id());
 					$f["options"] = $temp_f->get_children();
 				}
