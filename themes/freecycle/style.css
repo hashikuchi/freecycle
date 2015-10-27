@@ -215,6 +215,12 @@ textarea{
 	font-size: 1em;
 }
 
+a#explain_giveme{
+	display: block;
+	margin: 15px 0px 0px 104px;
+	/*float: right;*/
+}
+
 
 
 
@@ -1743,6 +1749,10 @@ img:after{
     visibility: hidden;
  }*/
 
+a#explain_giveme{
+	display: block;
+	margin: 5px 0px 0px 95px;
+}
 
 /*-----------FAQ------------*/
 h2.pagetitle{
@@ -3065,6 +3075,11 @@ img:after{
     display: block;
     visibility: hidden;
  }*/
+
+ a#explain_giveme{
+	display: block;
+	margin: 5px 0px 0px 95px;
+}
 
 /*-----------FAQ------------*/
 h2.pagetitle{
