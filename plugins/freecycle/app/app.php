@@ -38,7 +38,8 @@ function get_signup_fields_json(){
 					"type" => bp_get_the_profile_field_type(),
 					"input_name" => bp_get_the_profile_field_input_name(),
 					"name" => bp_get_the_profile_field_name(),
-					"id" => bp_get_the_profile_field_id()
+					"id" => bp_get_the_profile_field_id(),
+					"is_required" => bp_get_the_profile_field_is_required()
 				);
 
 				// セレクトボックス、ラジオボタンの場合、選択肢を配列にして追加する
