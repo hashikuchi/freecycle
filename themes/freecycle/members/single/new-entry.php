@@ -21,7 +21,7 @@
 </select>
 </br>
 <!-- status -->
-<label for="item_status">状態</label></br>
+<label for="item_status">状態が悪い</label></br>
 <select name="item_status">
 <option value="verygood"><?php echo get_display_item_status("verygood"); ?></option>
 <option value="good"><?php echo get_display_item_status("good"); ?></option>
