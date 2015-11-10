@@ -30,13 +30,13 @@
 			?>
 			
 				<div id="post-<?php the_ID(); ?>" class="grid">
-					<div class="grid_title"><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></div>
-					<a href="<?php the_permalink(); ?>"><?php the_post_thumbnail('large') ?></a>
+					<div class="grid_category">【 <?php the_category(' '); ?> 】</div>
+					<a class="thumb" href="<?php the_permalink(); ?>"><?php the_post_thumbnail('large') ?></a>
 					<?php 
 						wp_link_pages( array( 'before' => '<div class="page-link"><p>' . __( 'Pages: ', 'buddypress' ), 'after' => '</p></div>', 'next_or_number' => 'number' ) ); 
 					?>
-					<div class="grid_text"><?php the_content(); ?></div>
-					<div class="grid_author"><?php the_author(); ?></div>
+					<div class="grid_title"><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></div>
+					<!--div class="grid_text"><?php the_content(); ?></div-->
 				</div>
 			<?php
 				do_action( 'bp_after_blog_post' );
@@ -80,12 +80,19 @@
 function change(size){
 	if(size == 'big'){ // 拡大の処理
 		var width = jQuery('div.grid').width();
-		console.log(width);
 		jQuery('div.grid').css('width',width+30);
+		jQuery('div.grid').css('height',(width+30)*1.6);
+		jQuery('div.grid .thumb').css('width',width+30);
+		jQuery('div.grid .thumb').css('height',(width+30)*1.2);
+		jQuery('div.grid img').css('max-width',width+30);
 	}
 	else if(size == 'small'){ // 縮小の処理
 		var width = jQuery('div.grid').width();
 		jQuery('div.grid').css('width',width-30);
+		jQuery('div.grid').css('height',(width-30)*1.6);
+		jQuery('div.grid .thumb').css('width',width-30);
+		jQuery('div.grid .thumb').css('height',(width-30)*1.2);
+		jQuery('div.grid img').css('max-width',width-30);
 	}
 	jQuery('.grid_center').masonry({
       	itemSelector: '.grid',

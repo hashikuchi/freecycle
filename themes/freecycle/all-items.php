@@ -6,69 +6,83 @@
         $page = 1;
     }
     $arg = array(
-        'posts_per_page' => 10,
+        'posts_per_page' => 20,
         'paged' => $page
     );
     $items_query = new WP_Query($arg);
 ?>
-<h4 id="post-list-h4">商品一覧(<?php echo $items_query->found_posts;?>件)
-		</h4>
-        <?php get_search_form(); ?>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/masonry/3.3.2/masonry.pkgd.js"></script>
+<div class="page" id="blog-latest" role="main">
+	
+<h4 id="post-list-h4">商品一覧(<?php echo $items_query->found_posts;?>件)</h4>
 
-		<div class="page" id="blog-latest" role="main">
+<?php get_search_form(); ?>
+<div class="grid_zoom">
+	<div onClick="change('big')">＋</div>
+	<div onClick="change('small')">－</div>
+</div>
 
-			<?php if ( $items_query->have_posts() ) : ?>
+		<!------------------------------------------------------------------------------------------->
+		<?php 
+				if ( $items_query->have_posts() ) :
+					bp_dtheme_content_nav( 'nav-above' );
+					$count = 1;
+					$row = 2;
+					$is_closed = false;
 
-				<?php bp_dtheme_content_nav( 'nav-above' ); ?>
-				<?php $count = 1; ?>
-				<?php $row = 2; ?>
-				<?php $is_closed = false; ?>
-				<?php while ($items_query->have_posts()) : $items_query->the_post(); ?>
-					<?php do_action( 'bp_before_blog_post' ); ?>
-		<?php if($count%$row == 1) {
-				$is_closed = false;
+					echo('<div class="grid_center">');
+					while ($items_query->have_posts()) : $items_query->the_post();
+						do_action( 'bp_before_blog_post' );
+						/*if($count%$row == 1) {
+							$is_closed = false;
+							echo('<div class="posts-row">');
+						} */
 		?>
-				<div class="posts-row">
-		<?php } ?>
-					<div id="post-<?php the_ID(); ?>" <?php post_class(); ?> class="entry-on-index">
-
-						<div class="post-content">
-
-							<div class="entry">
-
-								<a href="<?php the_permalink(); ?>" class="post-img-contents"><?php the_post_thumbnail(array(150, 150)) ?></a>
-								<?php wp_link_pages( array( 'before' => '<div class="page-link"><p>' . __( 'Pages: ', 'buddypress' ), 'after' => '</p></div>', 'next_or_number' => 'number' ) ); ?>
-								<span class="index-item-title"><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></span>
-							</div>
-						</div><!-- post-content -->
-					</div><!-- post名 -->
-		<?php if($count%$row == 0) {
+							
+		<div id="post-<?php the_ID(); ?>" class="grid">
+			<div class="grid_title">【 <?php the_category(' '); ?> 】<?php the_tags( '',',',''); ?></div>
+			<a href="<?php the_permalink(); ?>"><?php the_post_thumbnail('large') ?></a>
+			<?php 
+				wp_link_pages( array( 'before' => '<div class="page-link"><p>' . __( 'Pages: ', 'buddypress' ), 'after' => '</p></div>', 'next_or_number' => 'number' ) ); 
+			?>
+			<a href="<?php the_permalink(); ?>"><?php the_title(); ?></a>
+			<div class="grid_text"><?php the_content(); ?></div>
+			<div class="grid_author"><?php the_author(); ?></div>
+		</div>
+					
+<!------------------------------------------------------------------------------------------->							
+	
+		<?php 
+			if($count%$row == 0) {
 				$is_closed = true;
+			}
+			
+			do_action( 'bp_after_blog_post' );
+			$count++;
+			endwhile;
+      if($is_closed == false){
+        echo('</div><!-- posts-row -->');
+        echo('<hr class=\"hr-posts-row\">');
+			}
+
+			bp_dtheme_content_nav( 'nav-below' ); 
 		?>
-				</div><!-- posts-row -->
-		<hr class="hr-posts-row">
-		<?php } ?>
-					<?php do_action( 'bp_after_blog_post' ); ?>
-				<?php $count++; ?>
-				<?php endwhile; ?>
-        <?php if($is_closed == false): ?>
-                </div><!-- posts-row -->
-        <hr class="hr-posts-row">
-        <?php endif; ?>
-
-				<?php bp_dtheme_content_nav( 'nav-below' ); ?>
-
-			<?php else : ?>
+<!------------------------------------------------------------------------------------------->
+		<?php else : ?>
 
 				<h2 class="center"><?php _e( '商品が見つかりませんでした', 'buddypress' ); ?></h2>
 				<p class="center"><?php _e( 'お探しの商品は見つかりませんでした。', 'buddypress' ); ?></p>
 
-			<?php endif; ?>
-            <?php  pagenation($page, $items_query->max_num_pages); ?>
+		<?php endif; ?>
+<!------------------------------------------------------------------------------------------->
+		<div class="grid pagenation_grid">
+    	<?php  pagenation($page, $items_query->max_num_pages); ?>
+		</div>
 		</div><!-- page ? -->
 
 		<?php do_action( 'bp_after_blog_home' ); ?>
 
+<!--ページネーション関数----------------------------------------------------------->
 <?php
     function pagenation($page, $max_num_pages){
         if($page > $max_num_pages){
@@ -118,3 +132,36 @@
         echo '<div class="' . $html_class . '" ><span>' . $value .'</span></div>';
     }
  ?>
+
+<!--可変グリッドアニメーション----------------------------------------------------------->
+	<script type="text/javascript">
+		jQuery(function(){
+    	jQuery('.grid_center').masonry({
+      	itemSelector: '.grid',
+      	isFitWidth: true,
+      	isAnimated: true,
+				isFitWidth : true
+    	});
+		});
+		
+function change(size){
+	if(size == 'big'){ // 拡大の処理
+		var width = jQuery('div.grid').width();
+		console.log(width);
+		jQuery('div.grid').css('width',width+30);
+		jQuery('div.pagenation_grid').css('width','100%');
+	}
+	else if(size == 'small'){ // 縮小の処理
+		var width = jQuery('div.grid').width();
+		jQuery('div.grid').css('width',width-30);
+		jQuery('div.pagenation_grid').css('width','100%');
+	}
+	jQuery('.grid_center').masonry({
+      	itemSelector: '.grid',
+      	isFitWidth: true,
+      	isAnimated: true,
+				isFitWidth : true
+    	});
+}
+</script>
+<!----------------------------------------------------------------------------------->

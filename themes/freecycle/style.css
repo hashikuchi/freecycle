@@ -4545,6 +4545,7 @@ div.grid{
 	background-color: #FFF;
 	float: left;
 	width: 200px;
+	height: 320px;
 	padding: 0px;
 	margin: 10px 5px;
 	/*border:1px solid #ffc133;*/
@@ -4555,21 +4556,51 @@ div.grid{
   -moz-box-shadow			: 3px 3px 10px #999;
   box-shadow					: 3px 3px 10px #999;
 }
+div.pagenation_grid{
+	width: 100%;
+	padding: 0px;
+	margin: 0px;
+	border:0px solid #ddd;
+	background-color: #fefefe;
+	-webkit-box-shadow	: 0px 0px 0px #FFF;
+  -moz-box-shadow			: 0px 0px 0px #FFF;
+  box-shadow					: 0px 0px 0px #FFF;
+}
+div.grid .thumb{
+	display:block;
+	width:200px;
+	height:240px;
+	overflow:hidden;
+	position:relative;
+}
 div.grid img{
-	margin: 0 auto;
-	width:100%;
-	height:auto;
+	height: auto;
+	max-width: 200px;
+	position:absolute;
+}
+div.grid .grid_category{
+	/*width: 100%;*/
+	font-size: 12px;
+	/*font-weight: bolder;*/
+	margin: 0px 0;
+	/*padding: 1px 2px;*/
+	border-bottom: 1px solid #ddd;
+	background-color: rgb(0, 173, 22);
+	color: #ffffff;
+	white-space:nowrap;
+	overflow:hidden;
+	text-overflow:ellipsis;
+}
+div.grid .grid_category a{
+	text-decoration: none;
+	color: #ffffff;	
 }
 div.grid .grid_title{
-	font-size: 13px;
-	font-weight: bolder;
-	margin: 0px 0;
-	padding: 10px 3px;
-	background-color: #fffdd6;
-}
-div.grid .grid_title a{
-	text-decoration: none;
-	color: #ff8428;
+	width: auto;
+	font-size: 15px;
+	white-space:nowrap;
+	overflow:hidden;
+	text-overflow:ellipsis;
 }
 div.grid .grid_text{
 	width: auto;
