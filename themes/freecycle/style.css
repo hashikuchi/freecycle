@@ -4575,8 +4575,14 @@ div.grid .thumb{
 }
 div.grid img{
 	height: auto;
-	max-width: 200px;
+	min-width:200px;
+	width:200px;
 	position:absolute;
+}
+div.grid .grid_img{
+	height: 240px;
+	width: 200px;
+	overflow: hidden;
 }
 div.grid .grid_category{
 	/*width: 100%;*/

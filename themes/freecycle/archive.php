@@ -31,7 +31,9 @@
 			
 				<div id="post-<?php the_ID(); ?>" class="grid">
 					<div class="grid_category">【 <?php the_category(' '); ?> 】</div>
-					<a class="thumb" href="<?php the_permalink(); ?>"><?php the_post_thumbnail('large') ?></a>
+					<div class="grid_img">
+						<a class="thumb" href="<?php the_permalink(); ?>"><?php the_post_thumbnail('large') ?></a>
+					</div>
 					<?php 
 						wp_link_pages( array( 'before' => '<div class="page-link"><p>' . __( 'Pages: ', 'buddypress' ), 'after' => '</p></div>', 'next_or_number' => 'number' ) ); 
 					?>
