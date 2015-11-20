@@ -1,0 +1,111 @@
+@media screen and (min-width: 481px) and (max-width: 768px) {
+/*ここから*/
+
+	
+/*ヘッダー部分*/
+header{
+	width: 100%;
+	height: auto;
+	background: white;
+	margin-top: 20px;
+}
+div#header_menu{
+	background: #fff;
+	width: 100%;
+	overflow: hidden;
+	position: relative;
+	top:10px;
+}
+header a#logo img{
+	width: 70%;
+	height: 60px;
+	margin: auto;
+	margin-top: 10px;
+	float: left;
+}
+header a img#menu_icon{
+	width: 40px;
+	height: 45px;
+	float: right;
+	margin: 20px 20px 0 0;
+}
+header a img#home_icon{
+	width: 40px;
+	height: 45px;
+	float: right;
+	margin: 20px 10px 0 0;
+}
+header a img#user_icon{
+	width: 40px;
+	height: 45px;
+	float: right;
+	margin: 20px 0px 0 0;
+}
+
+/*ナビゲーション*/
+.grobal_nav_div_sp{
+	display: none;
+	height: 220px;
+}
+div.grobal_nav_div{
+	display: none;
+}
+div.header_img_navi_contents{
+	/*margin-top: 20px;*/
+}
+nav{
+	margin: 3px 0 3px 0;
+	display: block;
+}
+nav ul,li	{
+	margin:0;
+	padding:0;
+	list-style: none;
+}
+nav .navi{
+	margin: 0 2px 0 0;
+	display: block;
+}
+nav li{
+	float: left;
+	text-align: center;
+	font-weight: bold;
+	border: solid 1px #000;
+	border-radius: 5px;
+	/*border-right: solid 1px #000;
+	border-left: solid 1px #FFF;*/
+	margin-left: 1px;
+	width: 100%;
+}
+nav li a{
+	color: black !important;
+	font-size: 15px;
+	display: block;
+	width: auto;
+	padding: 3px;
+	border-radius: 5px;
+	background: #ffd700;
+	text-decoration: none;
+	/*border-bottom: solid 1px #000;*/
+}
+nav li a:hover{
+	background: #ffa500;
+	padding: 3px;
+	text-decoration: none;
+	color: #fff;
+}
+.clearfix:after {
+  content: " ";
+  display: block;
+  height: 0;
+  clear: both;
+  visibility: hidden;
+}
+div.header_img_navi_contents{
+/*	margin-top: 20px;*/
+}
+
+	
+/************************タブレットスタイルの終了*****************************************/
+/*ここまで*/	
+}
