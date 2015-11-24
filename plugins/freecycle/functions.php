@@ -3085,21 +3085,20 @@ function insert_bookfair_day(){
         $_POST['huruhon_date']));
     die;
 }
-?>
 
-<script>
-// ajaxと連携して古本市の日付を入力
-jQuery('#insert_bookfair_day').on('click',function(){
-		jQuery.ajax({
-			type:'POST',
-			url:'<?php echo admin_url('admin-ajax.php'); ?>',
-			data:{
-				'action' : 'insert_bookfair_day',
-			},
-			success: function(){
+/*運営用ページ*/
+function admin_page(){
+	include_once get_stylesheet_directory().DIRECTORY_SEPARATOR."/admin/admin_function.php";
+	include_once get_stylesheet_directory().DIRECTORY_SEPARATOR."/admin/admin_top.php";
+}
+add_shortcode('admin_page', 'admin_page');
 
-			}
-		});
-		return false;
-});
-</script>
+/*検索結果を返す*/
+function get_search_json(){
+	$str = $_POST['str'];
+	include_once get_stylesheet_directory().DIRECTORY_SEPARATOR."/admin/ajax_function.php";
+	ajax_func($str);
+	//echo json_encode($json);
+}
+add_action('wp_ajax_nopriv_get_search_json', 'get_search_json');
+add_action('wp_ajax_get_search_json', 'get_search_json');
