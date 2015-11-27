@@ -122,7 +122,7 @@ jQuery(function(){
 });
 </script>
 <!----------------------------->
-<?
+<?php
     $url = explode("/",$_SERVER["REQUEST_URI"]);
     is_numeric(end($url)) ? $page = end($url) : $page = 1;
 	
