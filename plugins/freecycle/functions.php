@@ -980,10 +980,18 @@ function delete_post(){
 	}
 	$author = $item->post_author;
 	if($user_ID == $author){
-		wp_delete_post($postID);
-		// minus point on delete post
-		add_got_points($author, -1 * get_option('exhibition-point'));
+		$count = count_books($postID);
+		if($count <= 1){
+			// 在庫数が1冊以下なら出品ごと消す
+			wp_delete_post($postID);
+			// minus point on delete post
+			add_got_points($author, -1 * get_option('exhibition-point'));
+		}else{
+			// 在庫数が2冊以上なら、冊数のみ減らしておく
+			decreace_book_count($postID, 1);
+		}
 	}
+
 	die;
 }
 
