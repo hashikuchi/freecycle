@@ -144,10 +144,39 @@ function zoom(i){
 	 							学部: <?php echo $sub_category[0]->cat_name; ?>
  							<?php endif; ?>
 						</div>
-						<?php  echo '<p style="font-style:oblique;font-weight:bold">※現在、ユーザ間での取引は停止されています</p>';    ?>
-						<?php if($user_ID == $authordata->ID){ ?>
-						<input type="button" id="edit" value="編集" onClick='onEdit("<?php echo $item_status[0]; ?>");'>
-						<?php } ?>						
+						<?php if($user_ID == $authordata->ID){
+									if(isFinish($post->ID)){
+										if(isBidderEvaluated($post->ID)){ ?>
+							<!-- when status is finish -->
+											この商品は評価済です。
+									<?php }else{ ?>
+
+								<div id="evaluation">
+									落札者の評価:</br>
+									<select name="score" id="score">
+										<option value="invalid" selected>--選択--</option>
+										<option value="5" >とても良い</option>
+										<option value="4" >良い</option>
+										<option value="3" >普通</option>
+										<option value="2" >悪い</option>
+										<option value="1" >とても悪い</option>
+									</select>
+									</br>
+									コメント(任意 100字以内)</br>
+									<textarea name="trade_comment" id="trade_comment" rows="5" cols="40"></textarea></br>
+									<input type="button" id="evaluation" value="評価する" onClick="onBidderEvaluation();">
+								</div>
+
+								<?php } ?>
+							<?php }else if(isConfirm($post->ID)){ ?>
+							<!-- when status is confirm -->
+
+									<input type="button" id="finish" value="取引完了" onClick="onFinish();">
+							<?php }else{ ?>
+									<input type="button" id="edit" value="編集" onClick='onEdit("<?php echo $item_status[0]; ?>");'>
+							<?php }
+							 } ?>	
+							 <?php  echo '<p style="font-style:oblique;font-weight:bold">※現在、ユーザ間での取引は停止されています</p>';    ?>					
 
 						<p class="date">
 							<!-- <span></span>がないと次の<span>がイタリックになる -->
