@@ -26,8 +26,7 @@ add_action('wp_ajax_cancel_trade_from_bidder', 'cancel_trade_from_bidder');
 add_action('wp_ajax_get_login_user_info', 'get_login_user_info');
 add_action('user_register', 'on_user_added');
 add_action('delete_user', 'on_user_deleted');
-add_action('wp_ajax_insert_bookfair_day','insert_bookfair_day');
-add_action('wp_ajax_search_bookfair_day','search_bookfair_day');
+add_action('wp_ajax_insert_bookfair_date_venue','insert_bookfair_date_venue');
 remove_filter( 'bp_get_the_profile_field_value', 'xprofile_filter_link_profile_data', 9, 2);
 
 // load files
@@ -3074,15 +3073,23 @@ function escape_html_special_chars($text, $charset = 'utf-8'){
 }
 
 // 古本市の日付入力
-function insert_bookfair_day(){
+function insert_bookfair_date_venue(){
     global $wpdb;
     global $table_prefix;
     global $user_ID;
+    $timestamp_of_bookfair_day = strtotime(intval($_POST['book_fair_date']));
+    $datetime_bookfair_date = date($timestamp_of_bookfair_day,'Y-m-d');
+    $bookfair_date = $_POST['book_fair_date'];
+    $bookfair_venue = $_POST['book_fair_venue'];
     $wpdb->query($wpdb->prepare("
         INSERT INTO " . $table_prefix . "fmt_book_fair
-        (insert_timestamp)
-        VALUES (%s)",
-        $_POST['huruhon_date']));
+        (date,venue,insert_timestamp,update_timestamp)
+        VALUES (%d,%s,current_timestamp,current_timestamp)",$datetime_bookfair_date,$bookfair_venue));
+    // $wpdb->query($wpdb->prepare("
+    //     INSERT INTO " . $table_prefix . "fmt_book_fair
+    //     (date,venue,insert_timestamp)
+    //     VALUES (:date,:venue,current_timestamp)"));
+    
     die;
 }
 
@@ -3102,3 +3109,9 @@ function get_search_json(){
 }
 add_action('wp_ajax_nopriv_get_search_json', 'get_search_json');
 add_action('wp_ajax_get_search_json', 'get_search_json');
+
+// 運営用古本市ページ
+function book_fair_page(){
+	include_once get_stylesheet_directory().DIRECTORY_SEPARATOR."admin\book_fair_page.php";
+}
+add_shortcode('book_fair_page','book_fair_page');

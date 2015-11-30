@@ -472,4 +472,21 @@ function switchProfileButtonDisabled(itemID){
 			}
 }
 
+jQuery('#insert_bookfair_date_venue').click(function(){
+    jQuery.ajax({
+      type:'POST',
+      url:'<?php echo admin_url('admin-ajax.php'); ?>',
+      data:{
+        'action' : 'insert_bookfair_date_venue',
+      },
+      success: function(){
+          // jQuery("#insert_bookfair_date_venue").empty();
+          alert('success!!');
+      }
+    });
+    return false;
+});
+
+
+
 </script>
