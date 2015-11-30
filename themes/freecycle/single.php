@@ -145,10 +145,9 @@ function zoom(i){
  							<?php endif; ?>
 						</div>
 						<?php  echo '<p style="font-style:oblique;font-weight:bold">※現在、ユーザ間での取引は停止されています</p>';    ?>
+						<?php if($user_ID == $authordata->ID){ ?>
 						<input type="button" id="edit" value="編集" onClick='onEdit("<?php echo $item_status[0]; ?>");'>
-						
-
-						
+						<?php } ?>						
 
 						<p class="date">
 							<!-- <span></span>がないと次の<span>がイタリックになる -->
