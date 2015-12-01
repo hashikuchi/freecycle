@@ -3159,3 +3159,13 @@ function get_post_by_ISBN($isbn){
 		return $posts[0];
 	}
 }
+
+//windowのショートコードなど
+function admin_window{
+	include_once"admin/receive.php";
+	include_once"";
+	include_once"";
+	//ここに情報受け取りの関数名（作らねば。。。？）
+	
+}
+	add_shortcode('admin_winodw','admin_window');
