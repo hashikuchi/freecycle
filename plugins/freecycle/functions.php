@@ -3161,6 +3161,9 @@ function get_post_by_ISBN($isbn){
 }
 
 //windowのショートコードなど
+/*
+add_shortcode('admin_winodw','admin_window');
+
 function admin_window{
 	include_once"admin/receive.php";
 	include_once"";
@@ -3168,4 +3171,5 @@ function admin_window{
 	//ここに情報受け取りの関数名（作らねば。。。？）
 	
 }
-	add_shortcode('admin_winodw','admin_window');
+	
+*/

@@ -1,4 +1,5 @@
 <!doctype html>
+<html>
 <htmllang="ja">
     <head>
         <meta charset="utf-8">
@@ -19,9 +20,9 @@
         <h2>Information</h2>
             <div class="column_info">
                 <div class="detail1">
-                    <h3>今週の予約件数</h3>
-					<a href="http://www.kayac.com/"></a>
-				</div>
-			</div>
+                    <h3>利用者から</h3><a href="http://www.kayac.com/">変えるんだ</a>
+                </div>
+                </div>
+            </div>
     </body>
 </html>
