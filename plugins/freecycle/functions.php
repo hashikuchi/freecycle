@@ -3073,18 +3073,22 @@ function escape_html_special_chars($text, $charset = 'utf-8'){
 }
 
 // 古本市の日付入力
-function insert_bookfair_date_venue(){
+function insert_bookfair_info(){
     global $wpdb;
     global $table_prefix;
     global $user_ID;
-    $timestamp_of_bookfair_day = strtotime(intval($_POST['book_fair_date']));
-    $datetime_bookfair_date = date($timestamp_of_bookfair_day,'Y-m-d');
-    $bookfair_date = $_POST['book_fair_date'];
-    $bookfair_venue = $_POST['book_fair_venue'];
+    // $timestamp_of_bookfair_day = strtotime($_POST['bookfair_date']);
+    // $datetime_bookfair_date = date($timestamp_of_bookfair_day,'Y-m-d H:i:s');
+    $bookfair_date = $_POST['bookfair_date'];
+    $bookfair_start_time = $_POST['bookfair_start_time'];
+    $bookfair_end_time = $_POST['bookfair_end_time'];
+    $bookfair_venue = $_POST['bookfair_venue'];
+    // debug_log($_POST['bookfair_date']);
+    // debug_log($timestamp_of_bookfair_day);
     $wpdb->query($wpdb->prepare("
         INSERT INTO " . $table_prefix . "fmt_book_fair
         (date,venue,insert_timestamp,update_timestamp)
-        VALUES (%d,%s,current_timestamp,current_timestamp)",$datetime_bookfair_date,$bookfair_venue));
+        VALUES (%s,%s,current_timestamp,current_timestamp)",$bookfair_date,$bookfair_venue));
     // $wpdb->query($wpdb->prepare("
     //     INSERT INTO " . $table_prefix . "fmt_book_fair
     //     (date,venue,insert_timestamp)
