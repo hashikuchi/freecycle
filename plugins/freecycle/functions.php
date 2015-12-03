@@ -3087,7 +3087,7 @@ function escape_html_special_chars($text, $charset = 'utf-8'){
 	return htmlspecialchars($nongtext, ENT_QUOTES, $charset);
 }
 
-// 古本市の日付入力
+// 古本市の、開催日・開始時間・終了時間・開催場所を入力する
 function insert_bookfair_info(){
     global $wpdb;
     global $table_prefix;
@@ -3102,13 +3102,8 @@ function insert_bookfair_info(){
     // debug_log($timestamp_of_bookfair_day);
     $wpdb->query($wpdb->prepare("
         INSERT INTO " . $table_prefix . "fmt_book_fair
-        (date,venue,insert_timestamp,update_timestamp)
-        VALUES (%s,%s,current_timestamp,current_timestamp)",$bookfair_date,$bookfair_venue));
-    // $wpdb->query($wpdb->prepare("
-    //     INSERT INTO " . $table_prefix . "fmt_book_fair
-    //     (date,venue,insert_timestamp)
-    //     VALUES (:date,:venue,current_timestamp)"));
-    
+        (date,start_datetime,end_datetime,venue,insert_timestamp)
+        VALUES (%s,%s,%s,%s,current_timestamp)",$bookfair_date,$bookfair_start_time,$bookfair_end_time,$bookfair_venue));
     die;
 }
 
@@ -3131,10 +3126,10 @@ add_action('wp_ajax_get_search_json', 'get_search_json');
 
 // 運営用古本市ページ
 function book_fair_page(){
-	include_once get_stylesheet_directory().DIRECTORY_SEPARATOR."admin\book_fair_page.php";
+	include_once get_stylesheet_directory().DIRECTORY_SEPARATOR."admin/book_fair_page.php";
 }
 add_shortcode('book_fair_page','book_fair_page');
-=======
+
 function admin_styles() {
     wp_enqueue_style( 'admin', "/wp-content/themes/freecycle/admin/admin_style.css");
 }
