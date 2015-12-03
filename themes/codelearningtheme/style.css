@@ -1,0 +1,12 @@
+/*
+Theme Name: Code Learning Theme
+*/
+
+body{
+width:800px;
+padding-top:10em;
+margin: auto;
+line-height:1.8em;
+font-family:"メイリオ", "Meiryo", "ヒラギノ角ゴ Pro N W3", "Hiragino Kaku Gothic ProN", "ＭＳ Ｐゴシック", "MS PGothic", sans-serif;
+font-size:1.5em;
+}

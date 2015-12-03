@@ -1,3 +1,5 @@
+//ヘッダーとフッターは統一の必要性はあるのか？
+
 <!doctype html>
 <html>
 <htmllang="ja">

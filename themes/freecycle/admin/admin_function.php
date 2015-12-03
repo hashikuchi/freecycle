@@ -135,3 +135,15 @@ jQuery(function(){
 }
 /**管理者用商品一覧**/
 ?>
+	
+//windowのショートコードなど
+/*
+add_shortcode('admin_winodw','admin_window');
+
+function admin_window{
+	include_once"admin/receive.php";
+	include_once"";
+	include_once"admin/asmin_window.php";
+	//ここに情報受け取りの関数名（作らねば。。。？）
+}	
+*/
