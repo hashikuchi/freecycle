@@ -3160,3 +3160,11 @@ function get_post_by_ISBN($isbn){
 	}
 }
 
+
+
+function admin_window(){
+	include_once "/wp-content/themes/freecycle/admin/admin_function.php";
+}
+
+add_shortcode('admin_winodw','admin_window');
+

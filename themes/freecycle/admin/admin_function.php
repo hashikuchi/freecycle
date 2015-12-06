@@ -136,14 +136,9 @@ jQuery(function(){
 /**管理者用商品一覧**/
 ?>
 	
-//windowのショートコードなど
-/*
-add_shortcode('admin_winodw','admin_window');
-
+//↓トップページ呼び出し?
+<?php
 function admin_window{
-	include_once"admin/receive.php";
-	include_once"";
-	include_once"admin/asmin_window.php";
-	//ここに情報受け取りの関数名（作らねば。。。？）
+	include_once "admin/admin_style.css";
 }	
-*/
+>

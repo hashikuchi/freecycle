@@ -1,5 +1,8 @@
-//ヘッダーとフッターは統一の必要性はあるのか？
-
+<?php
+/*
+Template Name: 管理者用トップページ
+*/
+?>
 <!doctype html>
 <html>
 <htmllang="ja">
