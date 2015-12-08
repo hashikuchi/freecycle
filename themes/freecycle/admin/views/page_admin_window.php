@@ -1,17 +1,13 @@
-<?php
-/*
-Template Name: 管理者用トップページ
-*/
-?>
+
 <!doctype html>
 <html>
 <htmllang="ja">
     <head>
         <meta charset="utf-8">
         <title>テクチェ運営トップ</title>
-        <link rel="stylesheet" type="text/css" href="window.css">
+        <link rel="stylesheet" type="text/css" href="<php echo get_template_directory_url();?>/window.css">
     </head>
-    <body>
+    <body class="window_body">
 			<div class="fake">
         <h1 class="top_char">テクチェ運営<br>トップページ</h1>
 			</div>

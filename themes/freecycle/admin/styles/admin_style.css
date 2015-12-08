@@ -1,3 +1,9 @@
+<?php
+/*
+Template Name: 管理者トップのデザイン
+*/
+?>
+
 
 .ad_categories{
     width: auto;
@@ -69,3 +75,56 @@
   display: none;
  }
 
+/*====================================*/
+.window_body{
+    background-color:#d7f9b0;
+}
+
+.fake{
+	width: 100%;
+	background-color:#09aa04;
+}
+h1{
+    width:auto;
+    padding :40px;
+    text-align:center;
+    
+}
+
+h2{
+    width:auto;
+    margin:10px 0px auto auto;
+    padding :20px;
+    background-color:#09aa04;
+    text-align:center;
+    clear:both;
+}
+
+.wrap{
+  text-align: center;
+}
+
+.inner{
+  display: inline-block;
+}
+
+.box{
+	display: inline-block;
+	border-radius: 5px;
+	margin: 45px;
+	min-height: 1px;
+	background:#ffa64d;
+	color:#ffffff;
+	text-align:center;
+	text-decoration:none;
+	padding:15px;
+}
+
+.box:hover{
+	text-decoration:none;
+	background:#09aa04;
+}
+
+.column_info{
+    with:900px;
+}
