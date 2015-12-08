@@ -1,13 +1,4 @@
 
-<!doctype html>
-<html>
-<htmllang="ja">
-    <head>
-        <meta charset="utf-8">
-        <title>テクチェ運営トップ</title>
-        <link rel="stylesheet" type="text/css" href="<php echo get_template_directory_url();?>/window.css">
-    </head>
-    <body class="window_body">
 			<div class="fake">
         <h1 class="top_char">テクチェ運営<br>トップページ</h1>
 			</div>
@@ -18,12 +9,12 @@
 				</div>
 			</div>
             </div>
-        <h2>Information</h2>
+       <!-- <h2>Information</h2>
             <div class="column_info">
                 <div class="detail1">
                     <h3>利用者から</h3><a href="http://www.kayac.com/">変えるんだ</a>
                 </div>
-                </div>
+                </div> -->
             </div>
     </body>
 </html>

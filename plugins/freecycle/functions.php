@@ -3118,6 +3118,7 @@ add_action('wp_ajax_get_search_json', 'get_search_json');
 
 function admin_styles() {
     wp_enqueue_style( 'admin', "/wp-content/themes/freecycle/admin/admin_style.css");
+	wp_enqueue_style( 'admin_window', "/wp-content/themes/freecycle/admin/styles/admin_window.css");
 }
 add_action( 'wp_enqueue_scripts', 'admin_styles');
 
@@ -3163,8 +3164,9 @@ function get_post_by_ISBN($isbn){
 
 
 function admin_window(){
-	include_once "/wp-content/themes/freecycle/admin/admin_function.php";
+	include_once get_stylesheet_directory().DIRECTORY_SEPARATOR."admin/views/admin_window.php";
+	//var_dump(get_stylesheet_directory().DIRECTORY_SEPARATOR);
 }
 
-add_shortcode('admin_winodw','admin_window');
+add_shortcode('admin_window','admin_window');
 
