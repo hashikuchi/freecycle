@@ -4,8 +4,8 @@
 			</div>
             <div class="wrap">
 				<div class="inner">
-					<div class="box"><a href="https://github.com/">在庫管理ページへ</a></div>
-					<div class="box"><a href="http://pla-cole.co/">古本市管理ページへ</a></div>
+					<a class="window_button" href="https://github.com/">在庫管理ページへっ</a>
+					<a class="window_button" href="http://pla-cole.co/">古本市管理ページへっ</a>
 				</div>
 			</div>
             </div>

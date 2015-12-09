@@ -6,8 +6,7 @@
 h1{
     width:auto;
     padding :40px;
-    text-align:center;
-    
+    text-align:center;    
 }
 
 h2{
@@ -27,7 +26,8 @@ h2{
   display: inline-block;
 }
 
-.box{
+.window_button{
+	font-family: Meiryo;
 	display: inline-block;
 	border-radius: 5px;
 	margin: 45px;
@@ -39,7 +39,8 @@ h2{
 	padding:15px;
 }
 
-.box:hover{
+.window_button:hover{
+	font-family: Meiryo;
 	text-decoration:none;
 	background:#09aa04;
 }
