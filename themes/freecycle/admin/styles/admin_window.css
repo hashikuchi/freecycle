@@ -24,26 +24,95 @@ h2{
 
 .inner{
   display: inline-block;
+	margin-bottom: 20px;
 }
 
-.window_button{
-	font-family: Meiryo;
+.window_button {
 	display: inline-block;
-	border-radius: 5px;
-	margin: 45px;
-	min-height: 1px;
-	background:#ffa64d;
-	color:#ffffff;
-	text-align:center;
-	text-decoration:none;
-	padding:15px;
+	width: 200px;
+	height: 45px;
+	text-align: center;
+	text-decoration: none;
+	line-height: 45px;
+	outline: none;
+	//以下追加コード
+	position: absolute;
+	-webkit-perspective: 300px;
+	perspective: 300px;
+	//以下試行錯誤：ボタン間にもっと余白を作りたい
+}
+.window_button::before,
+.window_button::after {
+	position: absolute;
+	z-index: -1;
+	display: block;
+	content: '';
+}
+.window_button,
+.window_button::before,
+.window_button::after {
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+	-webkit-transition: all .3s;
+	transition: all .3s;
 }
 
-.window_button:hover{
-	font-family: Meiryo;
-	text-decoration:none;
-	background:#09aa04;
+
+.window_button span {
+	display: block;
+	position: absolute;
+	width: 200px;
+	height: 60px;
+	border: 3px solid #09aa04;
+	text-align: center;
+	line-height: 56px;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+	-webkit-transition: all .3s;
+	transition: all .3s;
+	pointer-events: none;
+	//以下試行錯誤:ボタン間にもっと余白を作りたい
+	//そしてウィンドウを大きくすると、レイアウトが壊れるぜぇ
 }
+.window_button span:nth-child(1) {
+	font-family: Yu gothic;
+	font-weight: 700;
+	font-size: 20px;
+	background-color: #09aa04;
+	color: #ffa64d;
+	-webkit-transform: rotateX(90deg);
+	-moz-transform: rotateX(90deg);
+	transform: rotateX(90deg);
+	-webkit-transform-origin: 50% 50% -30px;
+	-moz-transform-origin: 50% 50% -30px;
+	transform-origin: 50% 50% -30px;
+}
+.window_button span:nth-child(2) {
+	font-family: Yu Mincho;
+	font-weight: bold;
+	background-color: #fff;
+	color: #09aa04;
+	-webkit-transform: rotateX(0deg);
+	-moz-transform: rotateX(0deg);
+	transform: rotateX(0deg);
+	-webkit-transform-origin: 50% 50% -30px;
+	-moz-transform-origin: 50% 50% -30px;
+	transform-origin: 50% 50% -30px;
+}
+.window_button:hover span:nth-child(1) {
+	-webkit-transform: rotateX(0deg);
+	-moz-transform: rotateX(0deg);
+	transform: rotateX(0deg);
+}
+.window_button:hover span:nth-child(2) {
+	background-color: #09aa04;
+	-webkit-transform: rotateX(-90deg);
+	-moz-transform: rotateX(-90deg);
+	transform: rotateX(-90deg);
+}
+
 
 .column_info{
     with:900px;
