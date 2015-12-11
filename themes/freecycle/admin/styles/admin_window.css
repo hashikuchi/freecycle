@@ -91,6 +91,7 @@ h2{
 }
 .window_button span:nth-child(2) {
 	font-family: Yu Mincho;
+	font-size: 15px;
 	font-weight: bold;
 	background-color: #fff;
 	color: #09aa04;
