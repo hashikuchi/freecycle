@@ -1,0 +1,136 @@
+/*商品ぺージ*/
+#archive_grid_center{
+	/*position: relative;
+	width: 100%;
+  max-width: 799px;
+  margin: 0 auto;   /*全体の中央寄せ*/
+}
+
+.archive_grid{
+	width: 100%;
+}
+.archive_img_center{
+	display: table-cell;
+	height: 150px;
+	width: 100px;
+	text-align: center; /*左右中央*/
+	vertical-align: middle; /*上下中央*/
+}
+.archive_entry_img{
+	width:auto;
+	height:auto;
+	max-width:100px;
+	max-height:150px;
+}
+
+.archive_colm1{
+	margin: 5px;
+	float:left;
+}
+.archive_colm2{
+	position: relative;
+	height : 150px;
+	margin-left: 110px;
+	/*top : 10px;*/
+	bottom : 5px;
+}
+.archive_colm3{
+	position: absolute;
+	width: 50%;
+	height: 50%;
+	bottom: 0px;
+}
+.archive_colm_fotter{
+	width: calc( 100% - 10px );
+	height: 0px;
+	clear: both;
+	/*border-bottom:2px dashed #d7f9b0;*/
+	margin: 0 5px;
+}
+.archive_colm_header{
+	width: calc( 100% - 10px );
+	height: 0px;
+	clear: both;
+	/*border-bottom:2px dashed #d7f9b0;*/
+	border-bottom: 1px solid #d0d0d0;
+	-webkit-box-shadow: 0 1px 0 #fcfcfc;
+	-moz-box-shadow: 0 1px 0 #fcfcfc;
+	box-shadow: 0 1px 0 #fcfcfc;
+	margin: 0 5px;
+}
+
+.archive_title{
+	position: absolute;
+	width: 100%;
+	height: 50px;
+	font-size: 20px;
+	text-align: center;
+	top : 5px;
+}
+.archive_title p{
+	position: absolute;
+	bottom: 5px;
+	white-space: nowrap;
+	width: 95%;
+	overflow: hidden;
+	-o-text-overflow: ellipsis;
+	text-overflow: ellipsis;
+}
+.archive_explanation{
+	position: absolute;
+	width: 100%;
+	word-wrap: break-word; 
+	top : 50px;
+}
+.archive_explanation p{
+	white-space: nowrap;
+	width: 95%;
+	overflow: hidden;
+	-o-text-overflow: ellipsis;
+	text-overflow: ellipsis;
+}
+.archive_stock{
+	position: absolute;
+	width: 80%;
+	bottom: 40px;
+}
+.archive_stock div{
+	margin: auto;
+	vertical-align: center;
+	text-align: center;
+	color: red;
+	font-weight: bold;
+}
+.archive_genre{
+	position: absolute;
+	bottom: 0px;
+	width: 100%;
+	padding: 3px;
+}
+.archive_genre div{
+	width: 80%;
+	max-width: 150px;
+	padding: 5px 0px;
+	border-radius: 30px;
+	background-color:rgba(0, 0, 255, 0.3);
+	color: rgba(0, 0, 0, 0.5);
+	vertical-align: center;
+	text-align: center;
+	margin:auto;
+}
+.archive_reser{
+	position: absolute;
+	bottom: 0px;
+	right: 0px;
+	width:  50%;
+	height: 30%;
+	padding: 3px;
+}
+.archive_reser div{
+	width: 90%;
+	height: 100%;
+	background:#000;
+	color: #fff;
+	vertical-align: center;
+	text-align: center;
+}

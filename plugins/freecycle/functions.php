@@ -3092,15 +3092,15 @@ function escape_html_special_chars($text, $charset = 'utf-8'){
 	*/
 
 function admin_page(){
-	include_once get_stylesheet_directory().DIRECTORY_SEPARATOR."/admin/admin_function.php";
-	include_once get_stylesheet_directory().DIRECTORY_SEPARATOR."/admin/admin_top.php";
+	include_once get_stylesheet_directory().DIRECTORY_SEPARATOR."/admin/functions/admin_function.php";
+	include_once get_stylesheet_directory().DIRECTORY_SEPARATOR."/admin/views/admin_top.php";
 }
 add_shortcode('admin_page', 'admin_page');
 
 /*検索結果を返す*/
 function get_search_json(){
 	$str = $_POST['str'];
-	include_once get_stylesheet_directory().DIRECTORY_SEPARATOR."/admin/ajax_function.php";
+	include_once get_stylesheet_directory().DIRECTORY_SEPARATOR."/admin/functions/ajax_function.php";
 	ajax_func($str);
 	//echo json_encode($json);
 }
@@ -3118,9 +3118,22 @@ add_action( 'wp_enqueue_scripts', 'admin_styles');
 function header_styles() {
 	wp_enqueue_style( 'header', "/wp-content/themes/freecycle/style/header.css");
 	wp_enqueue_style( 'footer', "/wp-content/themes/freecycle/style/footer.css");
+	wp_enqueue_style( 'archive', "/wp-content/themes/freecycle/style/archive.css");
 }
 add_action( 'wp_enqueue_scripts', 'header_styles');
 
+/**
+	*archive
+	*/
+/*検索結果を返す*/
+function get_search_json_archive(){
+	$str = $_POST['str'];
+	include_once get_stylesheet_directory().DIRECTORY_SEPARATOR."/functions/archive_ajax_function.php";
+	ajax_func($str);
+	//echo json_encode($json);
+}
+add_action('wp_ajax_nopriv_get_search_json_archive', 'get_search_json_archive');
+add_action('wp_ajax_get_search_json_archive', 'get_search_json_archive');
 
 /* 本の冊数系関数*/
 function count_books($post_ID){

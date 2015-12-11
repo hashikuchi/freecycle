@@ -1,67 +1,28 @@
+<!--
+
+	stylesheet : style/archive.css
+
+-->
+
+<?php include_once get_stylesheet_directory().DIRECTORY_SEPARATOR."/functions/archive_func.php"; ?>
+
 <?php get_header(); ?>
+<?php archive_load_masonry(); ?>
+<h4 id="post-list-h4">商品一覧 (<?php archive_count_book(); ?>件)</h4>
 
-	<div id="content">
-		<div class="padder">
 
-		<?php do_action( 'bp_before_archive' ); ?>
-
-		<div class="page" id="blog-archives" role="main">
-
-			<h3 class="pagetitle"><?php printf('「%1$s」の商品一覧', wp_title( false, false ) ); ?></h3>
-
-			<?php if ( have_posts() ) : ?>
-
-				<?php bp_dtheme_content_nav( 'nav-above' ); ?>
-				<?php $count = 1; ?>
-				<?php $row= 2; ?>
-				<?php $is_closed = false; ?>
-				<?php while (have_posts()) : the_post(); ?>
-					<?php do_action( 'bp_before_blog_post' ); ?>
-		<?php if($count%$row == 1) {
-				$is_closed = false;
-		?>
-				<div class="posts-row">
-		<?php } ?>
-					<div id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
-
-						<div class="post-content">
-
-							<div class="entry">
-								<a href="<?php the_permalink(); ?>"><?php the_post_thumbnail(array(150, 150)) ?></a>
-								<?php wp_link_pages( array( 'before' => '<div class="page-link"><p>' . __( 'Pages: ', 'buddypress' ), 'after' => '</p></div>', 'next_or_number' => 'number' ) ); ?>
-								<span class="index-item-title"><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></span>
-							</div>
-						</div>
-					</div>
-		<?php if($count%$row == 0) {
-				$is_closed = true;
-		?>
-				</div><!-- posts-row -->
-		<hr class="hr-posts-row">
-		<?php } ?>
-					<?php do_action( 'bp_after_blog_post' ); ?>
-				<?php $count++; ?>
-				<?php endwhile; ?>
-		<?php if(!$is_closed){ ?>
-			</div><!-- posts-row -->
-		<hr class="hr-posts-row">
-		<?php } ?>
-				<?php bp_dtheme_content_nav( 'nav-below' ); ?>
-
-			<?php else : ?>
-
-				<h2 class="center"><?php _e( 'Not Found', 'buddypress' ); ?></h2>
-				<?php get_search_form(); ?>
-
-			<?php endif; ?>
-
-		</div>
-
-		<?php do_action( 'bp_after_archive' ); ?>
-
-		</div><!-- .padder -->
-	</div><!-- #content -->
-
-	<?php get_sidebar(); ?>
+<!-- 検索フォーム --> 
+<!--form id="ad_search_form">
+<div>
+<div><input class="ad_search" id="searchsubmit" style="float:right;"/></div>
+<input type="text" placeholder="検索" class="ad_input" name="s" id="s" value="" style="float:right;"/>
+</div>
+<div style="clear:both;">         
+</form-->
+<?php //archive_search_form(); ?>
+<!-- 検索フォーム --> 
+	
+<?php archive_search_init(); ?>
+<div class="archive_grid_center">Now Loading...</div>
 
 <?php get_footer(); ?>
