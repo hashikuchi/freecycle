@@ -3119,6 +3119,7 @@ function header_styles() {
 	wp_enqueue_style( 'header', "/wp-content/themes/freecycle/style/header.css");
 	wp_enqueue_style( 'footer', "/wp-content/themes/freecycle/style/footer.css");
 	wp_enqueue_style( 'archive', "/wp-content/themes/freecycle/style/archive.css");
+	wp_enqueue_style( 'button', "/wp-content/themes/freecycle/style/button.css");
 }
 add_action( 'wp_enqueue_scripts', 'header_styles');
 

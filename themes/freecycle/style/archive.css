@@ -93,11 +93,12 @@
 	position: absolute;
 	width: 80%;
 	bottom: 40px;
+	left: 0px;
 }
 .archive_stock div{
 	margin: auto;
 	vertical-align: center;
-	text-align: center;
+	text-align: right;
 	color: red;
 	font-weight: bold;
 }
