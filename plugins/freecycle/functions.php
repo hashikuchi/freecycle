@@ -26,7 +26,7 @@ add_action('wp_ajax_cancel_trade_from_bidder', 'cancel_trade_from_bidder');
 add_action('wp_ajax_get_login_user_info', 'get_login_user_info');
 add_action('user_register', 'on_user_added');
 add_action('delete_user', 'on_user_deleted');
-add_action('wp_ajax_insert_bookfair_date_venue','insert_bookfair_date_venue');
+add_action('wp_ajax_insert_bookfair_info','insert_bookfair_info');
 remove_filter( 'bp_get_the_profile_field_value', 'xprofile_filter_link_profile_data', 9, 2);
 
 // load files
@@ -3092,18 +3092,13 @@ function insert_bookfair_info(){
     global $wpdb;
     global $table_prefix;
     global $user_ID;
-    // $timestamp_of_bookfair_day = strtotime($_POST['bookfair_date']);
-    // $datetime_bookfair_date = date($timestamp_of_bookfair_day,'Y-m-d H:i:s');
-    $bookfair_date = $_POST['bookfair_date'];
     $bookfair_start_time = $_POST['bookfair_start_time'];
     $bookfair_end_time = $_POST['bookfair_end_time'];
     $bookfair_venue = $_POST['bookfair_venue'];
-    // debug_log($_POST['bookfair_date']);
-    // debug_log($timestamp_of_bookfair_day);
     $wpdb->query($wpdb->prepare("
         INSERT INTO " . $table_prefix . "fmt_book_fair
-        (date,start_datetime,end_datetime,venue,insert_timestamp)
-        VALUES (%s,%s,%s,%s,current_timestamp)",$bookfair_date,$bookfair_start_time,$bookfair_end_time,$bookfair_venue));
+        (start_datetime,end_datetime,venue,insert_timestamp,update_timestamp)
+        VALUES (%s,%s,%s,current_timestamp,current_timestamp)",$bookfair_start_time,$bookfair_end_time,$bookfair_venue));
     die;
 }
 
@@ -3126,14 +3121,23 @@ add_action('wp_ajax_get_search_json', 'get_search_json');
 
 // 運営用古本市ページ
 function book_fair_page(){
-	include_once get_stylesheet_directory().DIRECTORY_SEPARATOR."admin/book_fair_page.php";
+	include_once get_stylesheet_directory().DIRECTORY_SEPARATOR."admin/views/book_fair_page.php";
 }
 add_shortcode('book_fair_page','book_fair_page');
 
 function admin_styles() {
-    wp_enqueue_style( 'admin', "/wp-content/themes/freecycle/admin/admin_style.css");
+    wp_enqueue_style( 'admin_style', "/wp-content/themes/freecycle/admin/styles/admin_style.css");
+    wp_enqueue_style( 'admin_datetimepicker', "/wp-content/themes/freecycle/admin/js/datetimepicker/jquery.datetimepicker.css");
 }
 add_action( 'wp_enqueue_scripts', 'admin_styles');
+
+function admin_scripts(){
+	wp_enqueue_script('datetimepicker',"/wp-content/themes/freecycle/admin/js/datetimepicker/jquery.js");
+	wp_enqueue_script('datetimepicker_full',"/wp-content/themes/freecycle/admin/js/datetimepicker/build/jquery.datetimepicker.full.min.js");
+	wp_enqueue_script('bookfair_js',"/wp-content/themes/freecycle/admin/js/book_fair_pageJS.php");
+}
+add_action( 'wp_enqueue_scripts', 'admin_scripts');
+
 
 /* 本の冊数系関数*/
 function count_books($post_ID){
