@@ -63,7 +63,7 @@ foreach( $posts as $key => $post ) {
 	<!---予約ボタン-------------------------->
 	<div class="archive_reser">
 	<!--div>予約<br>ボタン</div-->
-	<a href="#" class="archive_reser_button">この本を予約</a>
+	<a href="#" class="archive_reser_button entry-button push-action">この本を<br>予約</a>
 	</div>
 	<!------------------------------------->
 </div>
