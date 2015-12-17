@@ -26,6 +26,9 @@ add_action('wp_ajax_cancel_trade_from_bidder', 'cancel_trade_from_bidder');
 add_action('wp_ajax_get_login_user_info', 'get_login_user_info');
 add_action('user_register', 'on_user_added');
 add_action('delete_user', 'on_user_deleted');
+add_action('wp_ajax_reservation_add', 'reservationAdd');
+add_action('wp_ajax_reservation_update', 'reservationUpdate');
+
 remove_filter( 'bp_get_the_profile_field_value', 'xprofile_filter_link_profile_data', 9, 2);
 
 // load files
@@ -3016,6 +3019,8 @@ function get_posts_log($options){
 *	$options['count'] = true のとき int
 *	それ以外のとき array[テーブルオブジェクト]
 */
+
+
 function get_data_within_the_period($options, $table, $timing){
 	global $wpdb, $table_prefix;
 	$sql;
@@ -3069,4 +3074,54 @@ function escape_html_special_chars($text, $charset = 'utf-8'){
 	$ngwords = array("<", ">", ";");
 	$nongtext = str_replace($ngwords, "", $text);
 	return htmlspecialchars($nongtext, ENT_QUOTES, $charset);
+}
+
+
+//Reservation処理の実装
+//new reservation
+function reservationAdd(){
+	global $wpdb;
+	global $table_prefix;
+	global $user_ID;
+	$item_id=$_GET["item_id"];
+	$bookfair_id=$_GET["bookfair_id"];
+	$status=$_GET["status"];
+	
+	$wpdb->query($wpdb->prepare("
+		INSERT INTO " . $table_prefix . "fmt_reservation
+		(item_id, user_id, bookfair_id, insert_timestamp, status)
+		VALUES (%d, %d, %d, current_timestamp, %d)",
+		$item_id,$user_ID,$bookfair_id,$status));
+		echo "Added";
+		
+}
+//update the reservation status
+function reservationUpdate(){
+	global $wpdb;
+	global $table_prefix;
+	global $user_ID;
+	$item_id=$_GET["item_id"];
+	$bookfair_id=$_GET["bookfair_id"];
+	$status=$_GET["status"];
+	
+	$wpdb->query($wpdb->prepare("
+		UPDATE " . $table_prefix . "fmt_reservation
+		SET user_id = %d,
+		update_timestamp = current_timestamp,
+		bookfair_id = %d,
+		status = %d
+		WHERE item_id = %d",
+		$user_id,$bookfair_id,$status,$item_id));
+		echo "Updated!";
+}
+
+function displayBookfair ($bookfair_id) {
+	global $wpdb;
+	global $table_prefix;
+	global $user_ID;
+		
+	$results = $wpdb->get_results($wpdb->prepare("
+		SELECT * FROM " . $table_prefix . "fmt_reservation WHERE bookfair_id = %d AND status = 0",
+		$bookfair_id));			
+	return $results;
 }
