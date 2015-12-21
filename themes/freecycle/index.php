@@ -1,10 +1,5 @@
-<?php
-	if(!is_user_logged_in()){
-		header('Location:' . home_url() . '/top-page.php');
-	}
-?>
-
 <?php get_header(); ?>
+
 <?php
 	$xml_setting = get_stylesheet_directory_uri()."/xml/setting.xml";
 	$xmlData_setting = simplexml_load_file($xml_setting);
@@ -120,9 +115,9 @@
 		<link rel="stylesheet" href="wp-content/themes/freecycle/js/owl-carousel/owl.theme.css">
 	<script>
 		jQuery(function() {
-			displayImages1();
-			displayImages2();
-			displayImages3();
+			//displayImages1();
+			//displayImages2();
+			//displayImages3();
 		});
 	</script>
 <!-- SlideImageScript -->
