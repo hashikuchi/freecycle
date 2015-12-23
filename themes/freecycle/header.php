@@ -19,21 +19,43 @@ if(!is_user_logged_in() || $current_user->user_level != ADMIN_LEVEL){
 <body <?php body_class(); ?> id="bp-default">
 <?php do_action( 'bp_before_header' ); ?>
 	
+<!--------------------------------------------->
+<!-- サイドオープン時メインコンテンツを覆う -->
+<div class="overlay" id="js__overlay"></div>
+<!--------------------------------------------->
+<!-- サイドメニュー -->
+<nav class="slide-menu">
+こんにちは、〇〇さん!!<br>
+ようこそ、テクスチェンジWeb版へ！
+	
+<div id="order">
+	あなたは○月×日に
+	<img src="image/book1.jpg">
+	「□□□□□」を注文しています。
+</div>
+	
+<div class="sl_button">メニュータイトル<span class="triangle12"></span></div>
+<div class="sl_button">メニュータイトル<span class="triangle12"></span></div>
+<div class="sl_button">メニュータイトル<span class="triangle12"></span></div>
+</nav>
+<!-- サイドメニュー -->
+<!--------------------------------------------->
+	
+	
 <!--ヘッダー------------------->
 <div id="header_menu_ber" role=”banner”>
 	<ul id="dropmenu" class="dropmenu">
+		<li id="menu_button">
+			<!-- 開閉用ボタン -->
+			<div class="slide-menu-btn" id="js__slideMenuBtn">
+				<span class="point p1"></span>
+				<span class="point p2"></span>
+				<span class="point p3"></span>
+			</div>
+		</li>
 		<li id="logo">
 			<a title="ホーム"><div id="logo_icon" alt="ロゴ"></div></a>
 		</li>
-		<li id="menu_button"><a id="menu_button_a"><div id="home_icon" alt="ホーム"></div></a>
-			<ul>
-			<li>予約確認<br><br>
-				<span id="check">あなたの<br>予約している本は
-					<img src="">○○です<br></span></li>
-			<li><a href="">予約キャンセル</a></li>
-			<li><a href="">検索</a></li>
-			<li><a href="">商品一覧</a></li>
-			</ul>
 		</li>
 	</ul>
 </div>
@@ -42,3 +64,39 @@ if(!is_user_logged_in() || $current_user->user_level != ADMIN_LEVEL){
 <?php if(is_archive() || is_search() || is_single()){ ?>
 <?php } ?>
 <div id="header_container">
+	
+	
+<!--スライドメニュースクリプト------------------->
+<script>
+//タップが出来る場合（SP・タブレットなど）
+//if (window.ontouchstart === null) alert('タッチ');
+//クリックしかできない場合（PCなど）
+//if (window.ontouchstart === undefined) alert('クリック');
+	
+jQuery(function () {
+	if (window.ontouchstart === null){
+		console.log("SmartPhone");
+		return;
+	} else {
+		var $body = jQuery('body');
+		jQuery('#js__slideMenuBtn').on('click', function () {
+			$body.toggleClass('slide-open');
+			jQuery('#js__overlay').on('click', function () {
+				$body.removeClass('slide-open');
+			});
+		});
+	}
+});
+
+var $body = jQuery('body');
+jQuery("#js__slideMenuBtn").on('touchstart', function(){
+	jQuery(".point").addClass('hover');
+});
+jQuery("#js__slideMenuBtn").on('touchend', function(){
+	jQuery(".point").removeClass('hover');
+  $body.toggleClass('slide-open');
+});
+jQuery("#js__overlay").on('touchstart', function(){
+   $body.removeClass('slide-open');
+});
+</script>
