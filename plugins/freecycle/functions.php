@@ -3118,6 +3118,8 @@ add_action( 'wp_enqueue_scripts', 'admin_styles');
 function header_styles() {
 	wp_enqueue_style( 'header', "/wp-content/themes/freecycle/style/header.css");
 	wp_enqueue_style( 'footer', "/wp-content/themes/freecycle/style/footer.css");
+	wp_enqueue_style( 'floating_action', "/wp-content/themes/freecycle/style/floating_action_button.css");
+	include_once get_stylesheet_directory().DIRECTORY_SEPARATOR."/parts/floating_action_button.php";
 }
 add_action( 'wp_enqueue_scripts', 'header_styles');
 

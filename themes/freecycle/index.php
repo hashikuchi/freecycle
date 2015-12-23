@@ -1,5 +1,7 @@
 <?php get_header(); ?>
 
+<?php floating_action_button(); ?>
+
 <?php
 	$xml_setting = get_stylesheet_directory_uri()."/xml/setting.xml";
 	$xmlData_setting = simplexml_load_file($xml_setting);

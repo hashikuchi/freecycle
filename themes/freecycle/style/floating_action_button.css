@@ -1,0 +1,66 @@
+/*floating action button*/
+#floating_action_button{}
+.fa_button{
+	position: fixed;
+	bottom : 20px;
+	right: 20px;
+	padding: 10px;
+	border-radius: 100%;
+	background-color: #c90101;
+	z-index: 10;
+	color: white;
+	border: 0 solid #000;
+	box-shadow: 1px 3px 5px #535353;
+	/*********************************/
+	-moz-user-select: none; /* Firefox */
+	-ms-user-select: none; /* Internet Explorer */
+	-khtml-user-select: none; /* KHTML browsers (e.g. Konqueror) */
+	-webkit-user-select: none; /* Chrome, Safari, and Opera */
+	-webkit-touch-callout: none; /* Disable Android and iOS callouts*/
+	cursor: pointer;
+}
+.fa_main{
+  width: 80px;
+	height : 80px;
+	font-size: 20px;
+	line-height: 80px;
+	opacity: 0.9;
+	text-align: center;
+}
+.fa_main:active{
+	animation-name: rippleAnimation;
+	animation-timing-function: ease-out;
+	animation-duration: 0.5s;
+	-webkit-animation-name: rippleAnimation;
+	-webkit-animation-timing-function: ease-out;
+	-webkit-animation-duration: 0.5s;
+	-moz-animation-name: rippleAnimation;
+	-moz-animation-timing-function: ease-out;
+	-moz-animation-duration: 0.5s;
+}
+.fa_main .search_text{
+	font-size: 20px;
+}
+.fa_sub{
+	position: fixed;
+	width: 60px;
+	height : 60px;
+	text-align: center;
+	line-height: 60px;
+	z-index: 1;
+	opacity: 0;
+	background-color: #4169e1;
+	font-size: 12px;
+}
+@keyframes rippleAnimation {
+	0% {transform: scale(1, 1);opacity: 1;}
+	100% {transform: scale(2,2);opacity: 0;}
+}
+@-webkit-keyframes rippleAnimation {
+	0% {-webkit-transform: scale(1, 1);opacity: 1;}
+	100% {-webkit-transform: scale(2,2);opacity: 0;}
+}
+@-moz-keyframes rippleAnimation {
+	0% {-moz-transform: scale(1, 1);opacity: 1;}
+	100% {-moz-transform: scale(2,2);opacity: 0;}
+}
