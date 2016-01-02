@@ -27,6 +27,7 @@ add_action('wp_ajax_get_login_user_info', 'get_login_user_info');
 add_action('user_register', 'on_user_added');
 add_action('delete_user', 'on_user_deleted');
 add_action('wp_ajax_insert_bookfair_info','insert_bookfair_info');
+add_action('wp_ajax_delete_bookfair_info','delete_bookfair_info');
 remove_filter( 'bp_get_the_profile_field_value', 'xprofile_filter_link_profile_data', 9, 2);
 
 // load files
@@ -3200,3 +3201,14 @@ function add_my_ajaxurl(){
 <?php
 }
 add_action('wp_head','add_my_ajaxurl',1);
+
+// 古本市の情報を削除する関数
+function delete_bookfair_info(){
+	global $wpdb;
+	global $table_prefix;
+	$bookfair_id = $_POST['bookfair_id'];
+	$wpdb->query($wpdb->prepare("
+				DELETE FROM " . $table_prefix . "fmt_book_fair
+				where bookfair_id = %d "
+				, $bookfair_id));
+}
