@@ -1,41 +1,77 @@
+/*古本市の予定入力欄のラベル*/
+span .bookfair_label{
+	margin-bottom: 15px;
+}
+
+/*開催日のテキストボックス*/
 .bookfair_day{
 	-moz-box-shadow: inset 0 0 4px rgba(0,0,0,0.2);
 	-webkit-box-shadow: inset 0 0 4px rgba(0, 0, 0, 0.2);
 	box-shadow: inner 0 0 4px rgba(0, 0, 0, 0.2);
-	/*border: 1px solid #0099cc;*/
 	height: 30px;
 	text-align: center;
-	/*background: #d9e5ff;*/
+	margin-top: 5px;
 	margin-bottom: 15px;
 }
 
+/*開催場所のテキストボックス*/
 #other_place{
 	-moz-box-shadow: inset 0 0 4px rgba(0,0,0,0.2);
 	-webkit-box-shadow: inset 0 0 4px rgba(0, 0, 0, 0.2);
 	box-shadow: inner 0 0 4px rgba(0, 0, 0, 0.2);
-	/*border: 1px solid #0099cc;*/
 	height: 30px;
 	text-align: center;
-	/*background: #d9e5ff;*/
 	margin-left: 15px;
 }
 
+/*入力完了のボタンのデザイン*/
 #insert_bookfair_info{
-	background: -moz-linear-gradient(top,#BFD9E5, #3D95B7 50%,#0080B3 50%,#0099CC);
-	background: -webkit-gradient(linear, left top, left bottom, from(#BFD9E5), color-stop(0.5,#3D95B7), color-stop(0.5,#0080B3), to(#0099CC));
-	color: #FFF;
-	border-radius: 4px;
-	-moz-border-radius: 4px;
-	-webkit-border-radius: 4px;
-	border: 1px solid #0099CC;
-	-moz-box-shadow: 1px 1px 1px rgba(000,000,000,0.3),inset 0px 0px 3px rgba(255,255,255,0.5);
-	-webkit-box-shadow: 1px 1px 1px rgba(000,000,000,0.3),inset 0px 0px 3px rgba(255,255,255,0.5);
-	text-shadow: 0px 0px 3px rgba(0,0,0,0.5);
+	background: #00CC00;
+	border: 1px solid #DDD;
+	color: #fff;
+	font-size: 15px;
 	width: 100px;
 	padding: 10px 0;
+	border-radius: 8px;
+	-moz-box-shadow: 1px 1px 1px rgba(000,000,000,0.3);
+	-webkit-box-shadow: 1px 1px 1px rgba(000,000,000,0.3);
 }
 
+/*入力完了ボタンのポジション*/
 .button_position{
 	margin-top: 30px;
+	margin-bottom: 30px;
 }
 
+/*古本市の予定表のデザイン*/
+#bookfair_table table{
+	width: auto;
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+
+#bookfair_table th{
+	color: #fff;
+    padding: 3px;
+    border-bottom: 1px solid #fff;
+    background: #00CC00;
+    font-weight: 400;
+    text-align: center;
+    font-family: sans-serif;
+    font-size: 15px;
+}
+
+#bookfair_table td{
+	padding: 5px;
+	text-align: center;
+}
+
+#bookfair_table tr:nth-child(2n){
+	background: #CCFF99;
+}
+
+/*セレクトボックス*/
+#bookfair_place{
+	height: 29px;
+	font-size: 15px;
+}

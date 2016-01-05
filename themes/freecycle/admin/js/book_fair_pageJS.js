@@ -47,22 +47,27 @@ function postBookfairInfo(){
             }else{
                 var place = jQuery('#other_place').val(); 
             }
-        swal({
-            title:"この内容でよろしいですか？", // タイトル文
-            text:"開催日:"+jQuery('#bookfair_date').val()+"開始時間："+jQuery('#start_bookfair_time').val()+"終了時間："+jQuery("#end_bookfair_time").val()+"開催場所："+place, //説明文
-            type:"warning", // default:null "warning","error","success","info"
-            allowOutsideClick:false, // default:false アラートの外を画面クリックでアラート削除
-            showCancelButton: true, // default:false キャンセルボタンの有無
-            confirmButtonText:"オッケー", // default:"OK" 確認ボタンの文言
-            confirmButtonColor: "#DD6B55", // default:"#AEDEF4" 確認ボタンの色
-            cancelButtonText:"キャンセル", // キャンセルボタンの文言
-            closeOnConfirm: false // default:true 確認ボタンを押したらアラートが削除される
-            },
-            function(){
-                postBookfairInfo(); // 古本市の日付と時間と場所の情報を送信
-                swal("入力完了!", "入力した古本市の予定は記録されました", "success");
-            }
-        );
+        var bookfair_date = jQuery('#bookfair_date').val();
+        var start_bookfair_time = jQuery('#start_bookfair_time').val();
+        var end_bookfair_time = jQuery("#end_bookfair_time").val();
+        if(bookfair_date=="" || start_bookfair_time=="" || end_bookfair_time==""){swal("入力していない情報があります");}
+        else{swal({
+              title:"この内容でよろしいですか？", // タイトル文
+              text:"開催日:"+bookfair_date+"開始時間："+start_bookfair_time+"終了時間："+end_bookfair_time+"開催場所："+place, //説明文
+              type:"warning", // default:null "warning","error","success","info"
+              allowOutsideClick:false, // default:false アラートの外を画面クリックでアラート削除
+              showCancelButton: true, // default:false キャンセルボタンの有無
+              confirmButtonText:"オッケー", // default:"OK" 確認ボタンの文言
+              confirmButtonColor: "#AEDEF4", // default:"#AEDEF4" 確認ボタンの色
+              cancelButtonText:"キャンセル", // キャンセルボタンの文言
+              closeOnConfirm: false // default:true 確認ボタンを押したらアラートが削除される
+              },
+              function(){
+                  postBookfairInfo(); // 古本市の日付と時間と場所の情報を送信
+                  swal("入力完了!", "入力した古本市の予定は記録されました", "success");
+              }
+            );
+        }
 
     };
 
@@ -75,7 +80,7 @@ function postDeleteBookfairInfo(bookfairID){
             allowOutsideClick:false, // default:false アラートの外を画面クリックでアラート削除
             showCancelButton: true, // default:false キャンセルボタンの有無
             confirmButtonText:"オッケー", // default:"OK" 確認ボタンの文言
-            confirmButtonColor: "#DD6B55", // default:"#AEDEF4" 確認ボタンの色
+            confirmButtonColor: "#000000", // default:"#AEDEF4" 確認ボタンの色
             cancelButtonText:"キャンセル", // キャンセルボタンの文言
             closeOnConfirm: false // default:true 確認ボタンを押したらアラートが削除される
             },
@@ -92,7 +97,7 @@ function postDeleteBookfairInfo(bookfairID){
                         title: "古本市の情報を取り消しました。",
                         type: "success",
                         showCancelButton: false,
-                        confirmButtonColor: "#AEDEF4",
+                        confirmButtonColor: "#000000",
                         confirmButtonText: "OK",
                         closeOnConfirm: true
                       },
@@ -105,7 +110,7 @@ function postDeleteBookfairInfo(bookfairID){
                         title: "古本市の情報の取り消しに失敗しました。",
                         type: "error",
                         showCancelButton: false,
-                        confirmButtonColor: "#AEDEF4",
+                        confirmButtonColor: "#000000",
                         confirmButtonText: "OK",
                         closeOnConfirm: true
                       });
@@ -115,3 +120,4 @@ function postDeleteBookfairInfo(bookfairID){
             }
         );
 }
+
