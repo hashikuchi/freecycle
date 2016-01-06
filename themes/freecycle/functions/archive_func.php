@@ -51,8 +51,20 @@ jQuery.ajax({
 		success: function(json){
 			jQuery(".archive_grid_center").empty();
 			jQuery(".archive_grid_center").append(json);
-			console.log(json);
+			/*console.log(json);*/
 		}
+});
+	
+jQuery(function(){
+	var b = jQuery('.archive_grid_center');
+	console.log(b.width());
+	if(b.width() > 900)
+		jQuery('.archive_grid').width((b.width()/3)-20);
+	else if(b.width() > 600)
+		jQuery('.archive_grid').width((b.width()/2)-20);
+	else
+		jQuery('.archive_grid').width(b.width()-10);
+	console.log("aaaaaaaa");
 });
 </script>
 <?php } 

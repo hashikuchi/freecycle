@@ -42,6 +42,9 @@ foreach( $posts as $key => $post ) {
 	
 <!---情報--------------------------->
 <div class="archive_colm2">
+	<!---ジャンル---------------------------->
+	<div class="rectangle"><?php echo get_category($returnObj[$key]['genre'][0])->cat_name ?></div>
+	<div class="triangle-r"></div>
 	<!---タイトル--------------------------->
 	<div class="archive_title">
 	<p href="<? echo $returnObj[$key]['permalink']; ?>"><?php echo $returnObj[$key]['post_title'] ?></p>
@@ -50,27 +53,17 @@ foreach( $posts as $key => $post ) {
 	<div class="archive_explanation">
 	<!--p>nullnullnullnullnullnullnullnullnullnullnullnull</p-->
 	</div>
-	<div class="archive_colm3">
 	<!---在庫------------------------------->
 	<div class="archive_stock">
 	<div>残り <?php ?>冊</div>
 	</div>
-	<!---ジャンル---------------------------->
-	<div class="archive_genre">
-	<div><?php echo get_category($returnObj[$key]['genre'][0])->cat_name ?></div>
-	</div>
-	</div>
 	<!---予約ボタン-------------------------->
-	<div class="archive_reser">
-	<!--div>予約<br>ボタン</div-->
-	<a href="#" class="archive_reser_button entry-button push-action">この本を<br>予約</a>
-	</div>
+	<!--a href="#" class="archive_reser_button entry-button push-action">この本を<br>予約</a-->
+	<a href="#" class="archive_reser">予約</a>
 	<!------------------------------------->
 </div>
-	
 <div class="archive_colm_fotter"></div>
 </div>
-
 
 <?php
 }

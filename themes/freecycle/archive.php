@@ -25,4 +25,19 @@
 <?php archive_search_init(); ?>
 <div class="archive_grid_center">Now Loading...</div>
 
+<script>
+jQuery(window).on('load resize', function(){
+	var b = jQuery('.archive_grid_center');
+	console.log(b.width());
+	if(b.width() > 1200)
+		jQuery('.archive_grid').width((b.width()/4)-30);
+	else if(b.width() > 900)
+		jQuery('.archive_grid').width((b.width()/3)-30);
+	else if(b.width() > 600)
+		jQuery('.archive_grid').width((b.width()/2)-30);
+	else
+		jQuery('.archive_grid').width(b.width()-10);
+});
+</script>
+
 <?php get_footer(); ?>
