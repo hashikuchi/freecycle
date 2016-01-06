@@ -208,13 +208,10 @@ a.archive_reser:after{
 /*在庫*/
 .archive_stock{
 	position: absolute;
-	width: 80%;
-	bottom: 40px;
-	left: 0px;
+	width: 100%;
+	bottom: 10px;
+	right: 115px;
 }
-<<<<<<< HEAD
-.archive_stock{
-=======
 .archive_stock div{
 	margin: auto;
 	vertical-align: center;
@@ -224,8 +221,6 @@ a.archive_reser:after{
 }
 .archive_genre{
 	position: absolute;
-	bottom: 0px;
->>>>>>> ce88d995b7024605153d8b55b32937f9ed26cc59
 	width: 100%;
 	bottom: 10px;
 	right: 115px;
