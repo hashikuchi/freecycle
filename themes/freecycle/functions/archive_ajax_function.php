@@ -58,8 +58,15 @@ foreach( $posts as $key => $post ) {
 	<div>残り <?php ?>冊</div>
 	</div>
 	<!---予約ボタン-------------------------->
+<<<<<<< HEAD
 	<!--a href="#" class="archive_reser_button entry-button push-action">この本を<br>予約</a-->
 	<a href="#" class="archive_reser">予約</a>
+=======
+	<div class="archive_reser">
+	<!--div>予約<br>ボタン</div-->
+	<a href="#" class="archive_reser_button entry-button push-action">この本を<br>予約</a>
+	</div>
+>>>>>>> ce88d995b7024605153d8b55b32937f9ed26cc59
 	<!------------------------------------->
 </div>
 <div class="archive_colm_fotter"></div>

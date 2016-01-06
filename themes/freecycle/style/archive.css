@@ -210,8 +210,22 @@ a.archive_reser:after{
 	position: absolute;
 	width: 80%;
 	bottom: 40px;
+	left: 0px;
 }
+<<<<<<< HEAD
 .archive_stock{
+=======
+.archive_stock div{
+	margin: auto;
+	vertical-align: center;
+	text-align: right;
+	color: red;
+	font-weight: bold;
+}
+.archive_genre{
+	position: absolute;
+	bottom: 0px;
+>>>>>>> ce88d995b7024605153d8b55b32937f9ed26cc59
 	width: 100%;
 	bottom: 10px;
 	right: 115px;
