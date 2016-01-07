@@ -8,7 +8,7 @@ add_action('wp_ajax_cancelGiveme', 'cancelGiveme');
 add_action('wp_ajax_confirmGiveme', 'confirmGiveme');
 add_action('wp_ajax_exhibiter_evaluation', 'exhibiter_evaluation');
 add_action('wp_ajax_bidder_evaluation', 'bidder_evaluation');
-add_action('wp_ajax_finish', 'finish');
+add_action('wp_ajax_finish_trade', 'finish_trade_by_ajax');
 add_action('wp_ajax_new_entry', 'new_entry');
 add_action('wp_ajax_delete_post', 'delete_post');
 add_action('wp_ajax_update_comment', 'update_comment');
@@ -26,6 +26,8 @@ add_action('wp_ajax_cancel_trade_from_bidder', 'cancel_trade_from_bidder');
 add_action('wp_ajax_get_login_user_info', 'get_login_user_info');
 add_action('user_register', 'on_user_added');
 add_action('delete_user', 'on_user_deleted');
+add_action('wp_ajax_insert_bookfair_info','insert_bookfair_info');
+add_action('wp_ajax_delete_bookfair_info','delete_bookfair_info');
 remove_filter( 'bp_get_the_profile_field_value', 'xprofile_filter_link_profile_data', 9, 2);
 
 // load files
@@ -532,44 +534,40 @@ function bidder_evaluation(){
 
 /**
  * 取引完了時に呼ばれる関数。
+ * @param $id{int} 商品のID
+ * @return {boolean} 正常終了時true, 異常時false
  */
-function finish(){
-	global $wpdb;
-	global $table_prefix;
-	$postID = $_POST['postID'];
-	$userID = $_POST['userID'];
-
-	// 記事の状態を取引完了済に変更
-	$wpdb->query($wpdb->prepare("
-		UPDATE " . $table_prefix . "fmt_giveme_state
-		SET update_timestamp = current_timestamp,
-		finished_flg = 1
-		WHERE post_id = %d",
-		$postID));
-
-	//todoリストの状態をfinishedにする-exhibiter
-	$todo_row = get_todo_row($userID, $postID);
-	$todoID = $todo_row->todo_id;
-	change_todo_status_finished($todoID);
-
-
-	//todoリストの状態をfinishedにする-bidder
-	$deal = $wpdb->get_row($wpdb->prepare("SELECT * FROM ".$table_prefix."fmt_trade_history
-		   	WHERE post_id=%d",
-		   	$postID));
-	$bidder_userID = $deal->bidder_id;
-	$todo_row = get_todo_row($bidder_userID, $postID);
-	$todoID = $todo_row->todo_id;
-	change_todo_status_finished($todoID);
-
-	//todoリストに追加
-	add_todo_evaluate_bidder($userID, $postID);
-	add_todo_evaluate_exhibitor($postID);
-
-
-
-	die;
+function finish_trade($id){
+	// 冊数が1冊以上あれば減らす
+	if(count_books($id) > 0){
+		decreace_book_count($id, 1);
+		return true;
+	}else{
+		return false;
+	}
 }
+	function finish_trade_by_ajax(){
+		// 管理者以外が処理しようとした場合エラー
+		if(!current_user_can("administrator")){
+			echo '{"error":"true", "message":"権限がありません。"}';
+			die;
+		}
+
+		// IDが指定されてない場合エラー
+		if(!isset($_REQUEST["post_id"])){
+			echo '{"error":"true", "message":"IDを指定してください。"}';
+			die;
+		}
+		$id = $_REQUEST["post_id"];
+		$result = finish_trade($id);
+		if($result){
+			echo '{"error":"false", "message":"取引を完了しました！"}';
+			die;
+		}else{
+			echo '{"error":"true", "message":"取引が完了できませんでした。管理者に報告してください。"}';
+			die;
+		}
+	}
 
 function set_giveme_flg($post_id, $val){
 	global $wpdb;
@@ -979,13 +977,11 @@ function delete_post(){
         die;
 	}
 	$author = $item->post_author;
-	if($user_ID == $author){
+	if(current_user_can('administrator')){
 		$count = count_books($postID);
 		if($count <= 1){
 			// 在庫数が1冊以下なら出品ごと消す
 			wp_delete_post($postID);
-			// minus point on delete post
-			add_got_points($author, -1 * get_option('exhibition-point'));
 		}else{
 			// 在庫数が2冊以上なら、冊数のみ減らしておく
 			decreace_book_count($postID, 1);
@@ -3095,11 +3091,25 @@ function escape_html_special_chars($text, $charset = 'utf-8'){
 	return htmlspecialchars($nongtext, ENT_QUOTES, $charset);
 }
 
+// 古本市の、開催日・開始時間・終了時間・開催場所を入力する
+function insert_bookfair_info(){
+    global $wpdb;
+    global $table_prefix;
+    $bookfair_start_time = $_POST['bookfair_start_time'];
+    $bookfair_end_time = $_POST['bookfair_end_time'];
+    if($_POST['bookfair_place']!=''){
+    	$bookfair_venue = $_POST['bookfair_place'];
+    }else{
+    	$bookfair_venue = $_POST['bookfair_venue'];
+    }
+    $wpdb->query($wpdb->prepare("
+        INSERT INTO " . $table_prefix . "fmt_book_fair
+        (start_datetime,end_datetime,venue,insert_timestamp,update_timestamp)
+        VALUES (%s,%s,%s,current_timestamp,current_timestamp)",$bookfair_start_time,$bookfair_end_time,$bookfair_venue));
+    die;
+}
 
-/**
-	*運営用ページ
-	*/
-
+/*運営用ページ*/
 function admin_page(){
 	include_once get_stylesheet_directory().DIRECTORY_SEPARATOR."/admin/admin_function.php";
 	include_once get_stylesheet_directory().DIRECTORY_SEPARATOR."/admin/admin_top.php";
@@ -3116,11 +3126,36 @@ function get_search_json(){
 add_action('wp_ajax_nopriv_get_search_json', 'get_search_json');
 add_action('wp_ajax_get_search_json', 'get_search_json');
 
+// 運営用古本市ページ
+function book_fair_page(){
+	include_once get_stylesheet_directory().DIRECTORY_SEPARATOR."admin/views/book_fair_page.php";
+}
+add_shortcode('book_fair_page','book_fair_page');
+
 function admin_styles() {
-    wp_enqueue_style( 'admin', "/wp-content/themes/freecycle/admin/admin_style.css");
+	wp_enqueue_style( 'admin_style', "/wp-content/themes/freecycle/admin/styles/admin_style.css");
 	wp_enqueue_style( 'admin_window', "/wp-content/themes/freecycle/admin/styles/admin_window.css");
+    wp_enqueue_style( 'admin_datetimepicker', "/wp-content/themes/freecycle/admin/js/datetimepicker/jquery.datetimepicker.css");
+    wp_enqueue_style('bookfair_style',"/wp-content/themes/freecycle/admin/styles/bookfair_style.css");
 }
 add_action( 'wp_enqueue_scripts', 'admin_styles');
+
+function admin_scripts(){
+	wp_enqueue_script('datetimepicker',"/wp-content/themes/freecycle/admin/js/datetimepicker/jquery.js");
+	wp_enqueue_script('datetimepicker_full',"/wp-content/themes/freecycle/admin/js/datetimepicker/build/jquery.datetimepicker.full.min.js");
+	wp_enqueue_script('bookfair_js',"/wp-content/themes/freecycle/admin/js/book_fair_pageJS.js",array(),false,true);
+}
+add_action( 'wp_enqueue_scripts', 'admin_scripts');
+
+/**
+	*ヘッダー
+	*/
+function header_styles() {
+	wp_enqueue_style( 'header', "/wp-content/themes/freecycle/style/header.css");
+	wp_enqueue_style( 'footer', "/wp-content/themes/freecycle/style/footer.css");
+}
+add_action( 'wp_enqueue_scripts', 'header_styles');
+
 
 /* 本の冊数系関数*/
 function count_books($post_ID){
@@ -3169,4 +3204,25 @@ function admin_window(){
 }
 
 add_shortcode('admin_window','admin_window');
+
+// admin_url('admin-ajax.php')をajaxurlとして定義
+function add_my_ajaxurl(){
+	?>
+	<script>
+		var ajaxurl = '<?php echo admin_url('admin-ajax.php'); ?>';
+	</script>
+<?php
+}
+add_action('wp_head','add_my_ajaxurl',1);
+
+// 古本市の情報を削除する関数
+function delete_bookfair_info(){
+	global $wpdb;
+	global $table_prefix;
+	$bookfair_id = $_POST['bookfair_id'];
+	$wpdb->query($wpdb->prepare("
+				DELETE FROM " . $table_prefix . "fmt_book_fair
+				where bookfair_id = %d "
+				, $bookfair_id));
+}
 
