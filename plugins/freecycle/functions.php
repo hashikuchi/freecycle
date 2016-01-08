@@ -3136,7 +3136,8 @@ function admin_styles() {
 	wp_enqueue_style( 'admin_style', "/wp-content/themes/freecycle/admin/styles/admin_style.css");
 	wp_enqueue_style( 'admin_window', "/wp-content/themes/freecycle/admin/styles/admin_window.css");
     wp_enqueue_style( 'admin_datetimepicker', "/wp-content/themes/freecycle/admin/js/datetimepicker/jquery.datetimepicker.css");
-    wp_enqueue_style('bookfair_style',"/wp-content/themes/freecycle/admin/styles/bookfair_style.css");
+    wp_enqueue_style( 'bookfair_style', "/wp-content/themes/freecycle/admin/styles/bookfair_style.css");
+	wp_enqueue_style( 'bookfair_function', "/wp-content/themes/freecycle/admin/functions/bookfair_function.php");
 }
 add_action( 'wp_enqueue_scripts', 'admin_styles');
 
