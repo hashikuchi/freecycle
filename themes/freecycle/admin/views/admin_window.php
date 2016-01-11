@@ -5,7 +5,7 @@
             <div class="wrap">
 				<div class="inner">
 					<a class="window_button" href="https://github.com/"><span>移動するっぴ！</span><span>在庫管理ページへっ</span></a>
-					<a class="window_button" href="<?php echo get_stylesheet_directory_uri();?>/admin/views/book_fair_page.php"><span>移動するっぴ！</span><span>古本市管理ページへっ</span></a>
+					<a class="window_button" href=" <?php echo home_url(); ?>/book_fair_page"><span>移動するっぴ！</span><span>古本市管理ページへっ</span></a>
 				</div>
 			</div>
             </div>

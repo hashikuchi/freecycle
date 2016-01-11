@@ -3227,3 +3227,9 @@ function delete_bookfair_info(){
 				, $bookfair_id));
 }
 
+
+// bookfair_function.phpを読み込む
+function get_bookfair_function(){
+	include_once get_stylesheet_directory().DIRECTORY_SEPARATOR."admin/functions/bookfair_function.php";	
+}
+

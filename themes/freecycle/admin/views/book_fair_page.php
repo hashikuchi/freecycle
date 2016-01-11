@@ -1,4 +1,8 @@
 
+<!-- ↓bookfair_functionlphpの読み込み -->
+<?php get_bookfair_function(); ?>
+
+
     <div id="insert_bookfair_info_area">
         <h3>古本市の予定入力欄</h3>
         <span class="bookfair_label" style="font-size:15px;color:darkorange;">１．開催日、開始時間、終了時間を指定する</span></br>
