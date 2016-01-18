@@ -42,11 +42,11 @@ function postBookfairInfo(){
 // 入力した古本市の予定内容の確認
   document.querySelector('#insert_bookfair_info').onclick = function(){
         var other_place = jQuery('#other_place').val(); 
-            if(other_place==""){
-                var place = jQuery('#bookfair_place option:selected').val();
-            }else{
-                var place = jQuery('#other_place').val(); 
-            }
+        if(other_place==""){
+            var place = jQuery('#bookfair_place option:selected').val();
+        }else{
+            var place = jQuery('#other_place').val(); 
+        }
         var bookfair_date = jQuery('#bookfair_date').val();
         var start_bookfair_time = jQuery('#start_bookfair_time').val();
         var end_bookfair_time = jQuery("#end_bookfair_time").val();

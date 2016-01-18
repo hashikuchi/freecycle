@@ -3125,10 +3125,10 @@ add_action('wp_ajax_nopriv_get_search_json', 'get_search_json');
 add_action('wp_ajax_get_search_json', 'get_search_json');
 
 // 運営用古本市ページ
-function book_fair_page(){
+function bookfair_page(){
 	include_once get_stylesheet_directory().DIRECTORY_SEPARATOR."admin/views/book_fair_page.php";
 }
-add_shortcode('book_fair_page','book_fair_page');
+add_shortcode('bookfair_page','bookfair_page');
 
 function admin_styles() {
     wp_enqueue_style( 'admin_style', "/wp-content/themes/freecycle/admin/styles/admin_style.css");
