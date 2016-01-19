@@ -4,13 +4,12 @@
 function get_bookfair_info_of_all_after_today(){
 	global $wpdb;
 	global $table_prefix;
-	$bookfair_infos = $wpdb->get_results($wpdb->prepare("
+	$bookfair_infos = $wpdb->get_results("
 		SELECT " . $table_prefix . "fmt_book_fair.bookfair_id, start_datetime, end_datetime ,venue
 		FROM " . $table_prefix . "fmt_book_fair 
 		WHERE end_datetime >= current_timestamp
 		ORDER BY start_datetime "
-		,null
-		));
+		);
 
 	return $bookfair_infos;
 }

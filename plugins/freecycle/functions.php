@@ -26,8 +26,8 @@ add_action('wp_ajax_cancel_trade_from_bidder', 'cancel_trade_from_bidder');
 add_action('wp_ajax_get_login_user_info', 'get_login_user_info');
 add_action('user_register', 'on_user_added');
 add_action('delete_user', 'on_user_deleted');
-add_action('wp_ajax_insert_bookfair_info','insert_bookfair_info');
-add_action('wp_ajax_delete_bookfair_info','delete_bookfair_info');
+add_action('wp_ajax_insert_bookfair_info','insert_bookfair_info_by_ajax');
+add_action('wp_ajax_delete_bookfair_info','delete_bookfair_info_by_ajax');
 remove_filter( 'bp_get_the_profile_field_value', 'xprofile_filter_link_profile_data', 9, 2);
 
 // load files
@@ -3090,22 +3090,26 @@ function escape_html_special_chars($text, $charset = 'utf-8'){
 }
 
 // 古本市の、開催日・開始時間・終了時間・開催場所を入力する
-function insert_bookfair_info(){
+function insert_bookfair_info($bookfair_start_time, $bookfair_end_time, $bookfair_venue){
     global $wpdb;
     global $table_prefix;
-    $bookfair_start_time = $_POST['bookfair_start_time'];
-    $bookfair_end_time = $_POST['bookfair_end_time'];
-    if($_POST['bookfair_place']!=''){
-    	$bookfair_venue = $_POST['bookfair_place'];
-    }else{
-    	$bookfair_venue = $_POST['bookfair_venue'];
-    }
     $wpdb->query($wpdb->prepare("
         INSERT INTO " . $table_prefix . "fmt_book_fair
         (start_datetime,end_datetime,venue,insert_timestamp,update_timestamp)
         VALUES (%s,%s,%s,current_timestamp,current_timestamp)",$bookfair_start_time,$bookfair_end_time,$bookfair_venue));
     die;
 }
+	function insert_bookfair_info_by_ajax(){
+		$bookfair_start_time = $_POST['bookfair_start_time'];
+		$bookfair_end_time = $_POST['bookfair_end_time'];
+		if($_POST['bookfair_place']!=''){
+    		$bookfair_venue = $_POST['bookfair_place'];
+	    }else{
+	    	$bookfair_venue = $_POST['bookfair_venue'];
+	    }
+	    insert_bookfair_info($bookfair_start_time, $bookfair_end_time, $bookfair_venue);
+	}
+
 
 /*運営用ページ*/
 function admin_page(){
@@ -3204,15 +3208,18 @@ function add_my_ajaxurl(){
 add_action('wp_head','add_my_ajaxurl',1);
 
 // 古本市の情報を削除する関数
-function delete_bookfair_info(){
+function delete_bookfair_info($bookfair_id){
 	global $wpdb;
 	global $table_prefix;
-	$bookfair_id = $_POST['bookfair_id'];
 	$wpdb->query($wpdb->prepare("
 				DELETE FROM " . $table_prefix . "fmt_book_fair
 				where bookfair_id = %d "
 				, $bookfair_id));
 }
+	function delete_bookfair_info_by_ajax(){
+			$bookfair_id = $_POST['bookfair_id'];
+			delete_bookfair_info($bookfair_id);
+	}
 
 // bookfair_function.phpを読み込む
 function get_bookfair_function(){

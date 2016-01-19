@@ -40,7 +40,7 @@ function postBookfairInfo(){
   }
 
 // 入力した古本市の予定内容の確認
-  document.querySelector('#insert_bookfair_info').onclick = function(){
+  jQuery('#insert_bookfair_info').click(function(){
         var other_place = jQuery('#other_place').val(); 
         if(other_place==""){
             var place = jQuery('#bookfair_place option:selected').val();
@@ -69,7 +69,7 @@ function postBookfairInfo(){
             );
         }
 
-    };
+    });
 
 // delete_bookfair_infoに削除する情報の古本市IDを渡す関数
 function postDeleteBookfairInfo(bookfairID){
