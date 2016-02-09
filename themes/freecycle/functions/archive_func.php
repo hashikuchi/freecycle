@@ -64,7 +64,6 @@ jQuery(function(){
 		jQuery('.archive_grid').width((b.width()/2)-20);
 	else
 		jQuery('.archive_grid').width(b.width()-10);
-	console.log("aaaaaaaa");
 });
 </script>
 <?php } 

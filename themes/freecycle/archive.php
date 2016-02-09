@@ -8,6 +8,39 @@
 
 <?php get_header(); ?>
 <?php archive_load_masonry(); ?>
+
+<!------------------------------------------------------>
+	<!--カテゴリ検索-->
+	<nav id="header-nav">カテゴリ検索
+	<ul>
+<?php
+		$main_categories = get_categories(array(
+      "parent" => 0,
+      "hide_empty" => 0,
+      "exclude" => 1 //'uncategorized'
+   	));
+
+   foreach ((array)$main_categories as $main_category) {
+      $main_id = $main_category->term_id;
+      $main_name = $main_category->name;
+      $main_slug = $main_category->slug;
+      $sub_categories = get_categories(array("parent" => $main_id));
+
+
+      foreach((array)$sub_categories as $sub_category){
+         $sub_name = $sub_category->name;
+         $sub_slug = $sub_category->slug;
+				echo "<a href='". home_url()."/archives/category/".$main_slug."/".$sub_slug ."'>
+							<li>$sub_name</li>
+							</a>";
+      }
+		 //echo "</div>";
+   }
+?>		
+	</ul>
+	</nav>
+	<!------------------------------------------------------>
+
 <h4 id="post-list-h4">商品一覧 (<?php archive_count_book(); ?>件)</h4>
 
 
