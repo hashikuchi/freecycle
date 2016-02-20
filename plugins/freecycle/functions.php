@@ -24,6 +24,9 @@ add_action('wp_ajax_register_app_information', 'register_app_information');
 add_action('wp_ajax_cancel_trade_from_exhibitor', 'cancel_trade_from_exhibitor');
 add_action('wp_ajax_cancel_trade_from_bidder', 'cancel_trade_from_bidder');
 add_action('wp_ajax_get_login_user_info', 'get_login_user_info');
+add_action('wp_ajax_nopriv_echo_main_categories_json', 'echo_main_categories_json');
+add_action('wp_ajax_nopriv_echo_sub_categories_json', 'echo_sub_categories_json');
+
 add_action('user_register', 'on_user_added');
 add_action('delete_user', 'on_user_deleted');
 remove_filter( 'bp_get_the_profile_field_value', 'xprofile_filter_link_profile_data', 9, 2);
@@ -2872,6 +2875,32 @@ function upload_itempictures($itemID){
 			}
 		}
 	}
+}
+
+
+function get_main_categories(){
+	return get_sub_categories(0);
+}
+
+function get_sub_categories($parent_id){
+	return get_categories(array(
+		"parent" => $parent_id,
+		"exclude" => 1
+	));
+}
+
+function echo_main_categories_json(){
+	echo json_encode(get_main_categories());
+	die;
+}
+
+function echo_sub_categories_json(){
+	if(!isset($_REQUEST["parent_id"])){
+		echo "{}";
+	}else{
+		echo json_encode(get_sub_categories($_REQUEST["parent_id"]));
+	}
+	die;
 }
 
 /**
