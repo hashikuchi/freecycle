@@ -51,7 +51,6 @@ jQuery.ajax({
 		success: function(json){
 			jQuery(".archive_grid_center").empty();
 			jQuery(".archive_grid_center").append(json);
-			/*console.log(json);*/
 		}
 });
 	

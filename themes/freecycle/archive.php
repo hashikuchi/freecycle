@@ -11,7 +11,7 @@
 
 <!------------------------------------------------------>
 	<!--カテゴリ検索-->
-	<nav id="header-nav">カテゴリ検索
+	<nav id="archive-nav">
 	<ul>
 <?php
 		$main_categories = get_categories(array(
@@ -39,6 +39,20 @@
 ?>		
 	</ul>
 	</nav>
+<script>
+jQuery(window).on('load resize', function(){
+	var a = jQuery('#archive-nav');
+	var b = jQuery('#archive-nav li');
+	var count = b.length;
+	
+	console.log(a.width());
+	if(a.width() > 800)
+		b.width((a.width()/4)-14);
+	else
+		b.width((a.width()/2)-14);
+});
+</script>
+<div class="clear"></div>
 	<!------------------------------------------------------>
 
 <h4 id="post-list-h4">商品一覧 (<?php archive_count_book(); ?>件)</h4>
@@ -59,17 +73,21 @@
 <div class="archive_grid_center">Now Loading...</div>
 
 <script>
-jQuery(window).on('load resize', function(){
-	var b = jQuery('.archive_grid_center');
-	console.log(b.width());
-	if(b.width() > 1200)
-		jQuery('.archive_grid').width((b.width()/4)-30);
-	else if(b.width() > 900)
-		jQuery('.archive_grid').width((b.width()/3)-30);
-	else if(b.width() > 600)
-		jQuery('.archive_grid').width((b.width()/2)-30);
+jQuery(window).on('load resize scroll', function(){
+	var a = jQuery('body');
+	var b = jQuery('.archive_grid');
+	//var b = jQuery('.archive_grid_center');
+	
+	console.log(a.width());
+	if(a.width() > 1200)
+		b.width((a.width()/4)-30);
+	else if(a.width() > 900)
+		b.width((a.width()/3)-30);
+	else if(a.width() > 600)
+		b.width((a.width()/2)-30);
 	else
-		jQuery('.archive_grid').width(b.width()-10);
+		b.width(a.width()-20);
+	console.log("--"+b.width());
 });
 </script>
 
