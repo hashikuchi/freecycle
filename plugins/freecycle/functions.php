@@ -3248,3 +3248,76 @@ function get_post_by_ISBN($isbn){
 		return $posts[0];
 	}
 }
+
+//Reservation処理の実装
+//new reservation
+function reservationAdd($item_id, $bookfair_id, $status){
+        global $wpdb;
+	global $table_prefix;
+	global $user_ID;
+
+        if (((int)$item_id == $item_id && (int)$item_id > 0) && ((int)$bookfair_id == $bookfair_id && (int)$bookfair_id > 0)){
+		$wpdb->query($wpdb->prepare("
+			INSERT INTO " . $table_prefix . "fmt_reservation
+			(item_id, user_id, bookfair_id, insert_timestamp, status)
+			VALUES (%d, %d, %d, current_timestamp, 0)",
+			$item_id,$user_ID,$bookfair_id,$status));
+	}
+}
+function reservationAddAjax(){
+	global $wpdb;
+	global $table_prefix;
+	global $user_ID;
+	
+	$item_id = isset($_GET["item_id"])?$_GET["item_id"]:"";
+	$bookfair_id = isset($_GET["bookfair_id"])?$_GET["bookfair_id"]:"";
+reservationAdd($item_id, $bookfair_id, $status);
+}
+
+//update the reservation status
+function reservationUpdate($item_id, $bookfair_id, $status){
+        global $wpdb;
+	global $table_prefix;
+	global $user_ID;
+
+        if (((int)$item_id == $item_id && (int)$item_id > 0) && ((int)$bookfair_id == $bookfair_id && (int)$bookfair_id > 0) && isValidStatus($status)){
+		$wpdb->query($wpdb->prepare("
+			UPDATE " . $table_prefix . "fmt_reservation
+			SET user_id = %d,
+			update_timestamp = current_timestamp,
+			bookfair_id = %d,
+			status = %d
+			WHERE item_id = %d",
+			$user_id,$bookfair_id,$status,$item_id));
+			echo "upd";
+	}
+}
+
+function reservationUpdateAjax(){
+	global $wpdb;
+	global $table_prefix;
+	global $user_ID;
+	$item_id = isset($_GET["item_id"])?$_GET["item_id"]:"";
+	$bookfair_id = isset($_GET["bookfair_id"])?$_GET["bookfair_id"]:"";	
+	$status = isset($_GET["status"])?$_GET["status"]:"";	
+reservationUpdate($item_id, $bookfair_id, $status);
+}
+//display books with the specified bookfair ID
+function displayBookfair ($bookfair_id){
+	global $wpdb;
+	global $table_prefix;
+	
+	if (((int)$bookfair_id == $bookfair_id && (int)$bookfair_id > 0)){	
+	$results = $wpdb->get_results($wpdb->prepare("
+		SELECT * FROM " . $table_prefix . "fmt_reservation WHERE bookfair_id = %d AND status = 0",
+		$bookfair_id));			
+	return $results;
+	}
+}
+
+
+//status verification function
+function isValidStatus($status){
+      // It might be better to define constants of status
+      return $status===1||$status===2||$status===3;
+}
