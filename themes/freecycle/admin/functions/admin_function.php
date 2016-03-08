@@ -122,7 +122,7 @@ jQuery(function(){
 });
 </script>
 <!----------------------------->
-<?
+<?php
     $url = explode("/",$_SERVER["REQUEST_URI"]);
     is_numeric(end($url)) ? $page = end($url) : $page = 1;
 	
@@ -135,3 +135,10 @@ jQuery(function(){
 }
 /**管理者用商品一覧**/
 ?>
+	
+//↓トップページ呼び出し?
+<?php
+function admin_window{
+	include_once "admin/admin_style.css";
+}	
+>
