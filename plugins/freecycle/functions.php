@@ -2984,6 +2984,15 @@ function show_all_items(){
 }
 add_shortcode('show_all_items', 'show_all_items');
 
+// 古本市情報を、アプリに送る
+// Send bookfair information to the app
+function get_bookfair_info_of_all()
+{
+    global $bookfairInfo
+    echo json_encode();
+    die;
+}
+
 // 古本市idから古本市の開始日時、終了日時、開催場所を取ってくる
 function get_bookfair_info_by_id($bookfair_id){
 	global $wpdb;
