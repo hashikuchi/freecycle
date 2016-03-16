@@ -26,6 +26,7 @@ add_action('wp_ajax_cancel_trade_from_bidder', 'cancel_trade_from_bidder');
 add_action('wp_ajax_get_login_user_info', 'get_login_user_info');
 add_action('user_register', 'on_user_added');
 add_action('delete_user', 'on_user_deleted');
+add_action('wp_ajax_nopriv_get_book_fair_info_of_all', 'get_book_fair_info_of_all_by_ajax');
 remove_filter( 'bp_get_the_profile_field_value', 'xprofile_filter_link_profile_data', 9, 2);
 
 // load files
@@ -2986,10 +2987,9 @@ add_shortcode('show_all_items', 'show_all_items');
 
 // 古本市情報を、アプリに送る
 // Send bookfair information to the app
-function get_bookfair_info_of_all()
+function get_bookfair_info_of_all_by_ajax()
 {
-    global $bookfairInfo
-    echo json_encode();
+    echo json_encode(get_bookfair_info_of_all());
     die;
 }
 
