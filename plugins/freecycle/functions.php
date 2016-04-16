@@ -3186,11 +3186,25 @@ function escape_html_special_chars($text, $charset = 'utf-8'){
 	return htmlspecialchars($nongtext, ENT_QUOTES, $charset);
 }
 
+// 古本市の、開催日・開始時間・終了時間・開催場所を入力する
+function insert_bookfair_info(){
+    global $wpdb;
+    global $table_prefix;
+    $bookfair_start_time = $_POST['bookfair_start_time'];
+    $bookfair_end_time = $_POST['bookfair_end_time'];
+    if($_POST['bookfair_place']!=''){
+    	$bookfair_venue = $_POST['bookfair_place'];
+    }else{
+    	$bookfair_venue = $_POST['bookfair_venue'];
+    }
+    $wpdb->query($wpdb->prepare("
+        INSERT INTO " . $table_prefix . "fmt_book_fair
+        (start_datetime,end_datetime,venue,insert_timestamp,update_timestamp)
+        VALUES (%s,%s,%s,current_timestamp,current_timestamp)",$bookfair_start_time,$bookfair_end_time,$bookfair_venue));
+    die;
+}
 
-/**
-	*運営用ページ
-	*/
-
+/*運営用ページ*/
 function admin_page(){
 	include_once get_stylesheet_directory().DIRECTORY_SEPARATOR."/admin/admin_function.php";
 	include_once get_stylesheet_directory().DIRECTORY_SEPARATOR."/admin/admin_top.php";
@@ -3207,10 +3221,27 @@ function get_search_json(){
 add_action('wp_ajax_nopriv_get_search_json', 'get_search_json');
 add_action('wp_ajax_get_search_json', 'get_search_json');
 
+// 運営用古本市ページ
+function book_fair_page(){
+	include_once get_stylesheet_directory().DIRECTORY_SEPARATOR."admin/views/book_fair_page.php";
+}
+add_shortcode('book_fair_page','book_fair_page');
+
 function admin_styles() {
-    wp_enqueue_style( 'admin', "/wp-content/themes/freecycle/admin/styles/admin_style.css");
+	wp_enqueue_style( 'admin_style', "/wp-content/themes/freecycle/admin/styles/admin_style.css");
+	wp_enqueue_style( 'admin_window', "/wp-content/themes/freecycle/admin/styles/admin_window.css");
+    wp_enqueue_style( 'admin_datetimepicker', "/wp-content/themes/freecycle/admin/js/datetimepicker/jquery.datetimepicker.css");
+    wp_enqueue_style( 'bookfair_style', "/wp-content/themes/freecycle/admin/styles/bookfair_style.css");
+	wp_enqueue_style( 'bookfair_function', "/wp-content/themes/freecycle/admin/functions/bookfair_function.php");
 }
 add_action( 'wp_enqueue_scripts', 'admin_styles');
+
+function admin_scripts(){
+	wp_enqueue_script('datetimepicker',"/wp-content/themes/freecycle/admin/js/datetimepicker/jquery.js");
+	wp_enqueue_script('datetimepicker_full',"/wp-content/themes/freecycle/admin/js/datetimepicker/build/jquery.datetimepicker.full.min.js");
+	wp_enqueue_script('bookfair_js',"/wp-content/themes/freecycle/admin/js/book_fair_pageJS.js",array(),false,true);
+}
+add_action( 'wp_enqueue_scripts', 'admin_scripts');
 
 /**
 	*css読み込み
@@ -3260,7 +3291,8 @@ function get_post_by_ISBN($isbn){
 		return $posts[0];
 	}
 }
-//固定ページ追加しまーす
+
+//商品個別ページ
 
 function book_detail(){
 	include_once get_stylesheet_directory().DIRECTORY_SEPARATOR."pages/views/bookdetails.php";
@@ -3273,3 +3305,38 @@ function detail_styles() {
 	wp_enqueue_style( 'fontello', "/wp-content/themes/freecycle/pages/styles/fontello.css");
 }
 add_action( 'wp_enqueue_scripts', 'detail_styles');
+
+//運営用window
+function admin_window(){
+	include_once get_stylesheet_directory().DIRECTORY_SEPARATOR."admin/views/admin_window.php";
+}
+
+add_shortcode('admin_window','admin_window');
+
+// admin_url('admin-ajax.php')をajaxurlとして定義
+function add_my_ajaxurl(){
+	?>
+	<script>
+		var ajaxurl = '<?php echo admin_url('admin-ajax.php'); ?>';
+	</script>
+<?php
+}
+add_action('wp_head','add_my_ajaxurl',1);
+
+// 古本市の情報を削除する関数
+function delete_bookfair_info(){
+	global $wpdb;
+	global $table_prefix;
+	$bookfair_id = $_POST['bookfair_id'];
+	$wpdb->query($wpdb->prepare("
+				DELETE FROM " . $table_prefix . "fmt_book_fair
+				where bookfair_id = %d "
+				, $bookfair_id));
+}
+
+
+// bookfair_function.phpを読み込む
+function get_bookfair_function(){
+	include_once get_stylesheet_directory().DIRECTORY_SEPARATOR."admin/functions/bookfair_function.php";	
+}
+
